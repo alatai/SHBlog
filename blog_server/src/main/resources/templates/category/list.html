@@ -5,23 +5,87 @@
 </head>
 <body class="sidebar-mini layout-fixed layout-navbar-fixed" style="height: auto">
 
+<!-- begin of wrapper -->
 <div id="categories" class="wrapper">
     <!-- nav -->
     <div th:replace="navbar::nav('カテゴリ')"></div>
     <!-- sidebar -->
     <div th:replace="sidebar::sidebar('categories')"></div>
 
+    <!-- begin of content-wrapper -->
     <div class="content-wrapper">
-        <!-- Main content -->
+        <!-- begin of content -->
         <div class="content">
+            <!-- begin of container-fluid -->
+            <div class="container-fluid">
+                <!-- begin of card -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">分类管理</h3>
+                    </div>
 
+                    <!-- begin of card-body -->
+                    <div class="card-body">
+                        <div class="grid-btn">
+                            <button class="btn btn-info" onclick="categoryAdd()"><i
+                                    class="fa fa-plus"></i>&nbsp;新增
+                            </button>
+                        </div>
+                        <br>
+
+                        <!-- begin of table -->
+                        <div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">分類名称</th>
+                                    <th scope="col">作成日</th>
+                                    <th scope="col">編集</th>
+                                    <th scope="col">削除</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="category in categories">
+                                    <td>{{ category.id }}</td>
+                                    <td>{{ category.name }}</td>
+                                    <td>{{ category.createdDate | formatDateFilter }}</td>
+                                    <td>
+                                        <a href="javascript:">
+                                            <i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end of table -->
+
+                        <!-- pageNav -->
+<!--                        <div th:replace="pagenav::pagenav"></div>-->
+
+                    </div>
+                    <!-- end of card-body -->
+                </div>
+                <!-- end of card -->
+            </div>
+            <!-- end of container-fluid -->
         </div>
+        <!-- end of content -->
     </div>
+    <!-- end of content-wrapper -->
 
     <!-- footer -->
     <div th:replace="footer::footer"></div>
 </div>
+<!-- end of wrapper -->
 
+<!-- begin of vue js -->
 <script type="text/javascript">
     $(() => {
         let vm = new Vue({
@@ -46,6 +110,7 @@
         });
     });
 </script>
+<!-- end of vue js -->
 
 </body>
 </html>
