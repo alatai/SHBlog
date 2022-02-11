@@ -1,0 +1,23 @@
+<head th:fragment="header(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- fix favicon -->
+    <link rel="shortcut icon" href="#">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- font awesome -->
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!-- bootstrap js -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- adminlte css -->
+    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+    <!-- adminlte js -->
+    <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+    <!-- vue js -->
+    <script type="text/javascript" th:src="@{/js/vue.js}"></script>
+    <!-- axios.js -->
+    <script type="text/javascript" th:src="@{/js/axios.min.js}"></script>
+
+    <title th:text="${title}"></title>
+</head>

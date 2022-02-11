@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head th:replace="header::header('SH Blog 管理')">
+</head>
+<body class="sidebar-mini">
+
+<script type="text/javascript">
+    $(() => {
+        let vm = new Vue({
+            el: '#categories',
+            data: {
+                url: 'data/categories',
+                categories: []
+            },
+            mounted: function () {
+                this.list();
+            },
+            methods: {
+                list: function () {
+                    axios.get(this.url).then((response) => {
+                        console.log(response);
+                        vm.categories = response.data;
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+<div id="categories">
+    <!-- nav -->
+    <div th:replace="navbar::nav('カテゴリ')"></div>
+    <!-- sidebar -->
+    <div th:replace="sidebar::sidebar('categories')"></div>
+
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
