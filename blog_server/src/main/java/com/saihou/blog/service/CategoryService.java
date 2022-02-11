@@ -1,6 +1,7 @@
 package com.saihou.blog.service;
 
 import com.saihou.blog.entity.Category;
+import com.saihou.blog.util.PageResult;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public interface CategoryService {
 
     List<Category> findAll();
+
+    PageResult<Category> findAll(Integer start, Integer size, Integer displayPages);
 
     Category findById(Integer id);
 

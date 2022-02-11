@@ -3,7 +3,11 @@ package com.saihou.blog.service.impl;
 import com.saihou.blog.dao.CategoryDao;
 import com.saihou.blog.entity.Category;
 import com.saihou.blog.service.CategoryService;
+import com.saihou.blog.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +32,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> findAll() {
         return categoryDao.findAll();
+    }
+
+    @Override
+    public PageResult<Category> findAll(Integer start, Integer size, Integer displayPages) {
+        Pageable pageable = PageRequest.of(start, size);
+        Page<Category> page = categoryDao.findAll(pageable);
+
+        return new PageResult<>(page, displayPages);
     }
 
     @Override
