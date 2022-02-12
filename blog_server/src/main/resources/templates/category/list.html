@@ -68,7 +68,8 @@
 
                         <!-- pageNav -->
                         <div th:replace="pagenav::pagenav"></div>
-
+                        <!-- edit modal -->
+                        <!-- delete modal -->
                     </div>
                     <!-- end of card-body -->
                 </div>
@@ -101,11 +102,10 @@
                 // 非同期でデータを取得する
                 list: function (start) {
                     axios.get(this.url, {
-                        param: {
+                        params: {
                             start: start
                         }
                     }).then((response) => {
-                        console.log(response);
                         vm.pageResult = response.data;
                     }).catch(function (error) {
                         console.log(error);
@@ -113,7 +113,6 @@
                 },
                 // パージナビコントロール
                 goPage: function (num) {
-                    console.log(num);
                     if (num !== vm.pageResult.number) {
                         this.list(num);
                     }
