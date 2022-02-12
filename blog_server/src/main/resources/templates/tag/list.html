@@ -6,11 +6,11 @@
 <body class="sidebar-mini layout-fixed layout-navbar-fixed" style="height: auto">
 
 <!-- begin of wrapper -->
-<div id="categories" class="wrapper">
+<div id="tags" class="wrapper">
     <!-- nav -->
-    <div th:replace="navbar::nav('カテゴリ')"></div>
+    <div th:replace="navbar::nav('タグ')"></div>
     <!-- sidebar -->
-    <div th:replace="sidebar::sidebar('categories')"></div>
+    <div th:replace="sidebar::sidebar('tags')"></div>
 
     <!-- begin of content-wrapper -->
     <div class="content-wrapper">
@@ -21,7 +21,7 @@
                 <!-- begin of card -->
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">カテゴリ管理</h3>
+                        <h3 class="card-title">タグ管理</h3>
                     </div>
 
                     <!-- begin of card-body -->
@@ -46,17 +46,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="category in pageResult.content">
-                                    <td>{{ category.id }}</td>
-                                    <td>{{ category.name }}</td>
-                                    <td>{{ category.createdDate | formatDateFilter }}</td>
+                                <tr v-for="tag in pageResult.content">
+                                    <td>{{ tag.id }}</td>
+                                    <td>{{ tag.name }}</td>
+                                    <td>{{ tag.createdDate | formatDateFilter }}</td>
                                     <td>
-                                        <a href="javascript:" v-on:click="openEditModal(category)">
+                                        <a href="javascript:" v-on:click="openEditModal(tag)">
                                             <i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="javascript:" v-on:click="openDeleteModal(category.id)">
+                                        <a href="javascript:" v-on:click="openDeleteModal(tag.id)">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>
@@ -69,10 +69,11 @@
                         <!-- pageNav -->
                         <div th:replace="pagenav::pagenav"></div>
                         <!-- edit modal -->
-                        <div th:replace="category/edit::edit"></div>
+                        <div th:replace="tag/edit::edit"></div>
                         <!-- delete modal -->
-                        <div th:replace="category/delete::delete"></div>
+                        <div th:replace="tag/delete::delete"></div>
                     </div>
+                    <!-- end of card-body -->
                     <!-- end of card-body -->
                 </div>
                 <!-- end of card -->
@@ -92,11 +93,11 @@
 <script type="text/javascript">
     $(() => {
         let vm = new Vue({
-            el: '#categories',
+            el: '#tags',
             data: {
-                url: 'data/categories',
+                url: 'data/tags',
                 pageResult: {},
-                category: {}
+                tag: {}
             },
             mounted: function () {
                 this.list(0);
@@ -121,21 +122,21 @@
                     }
                 },
                 // 編集モーダル
-                openEditModal: function (category) {
-                    if (category) {
-                        this.category = category;
+                openEditModal: function (tag) {
+                    if (tag) {
+                        this.tag = tag;
                     }
                     // 推奨されていない
                     $('#editModal').modal();
                 },
                 // 追加/更新
                 addOrUpdate: function () {
-                    if (this.category.id) {
-                        axios.put(this.url, this.category).then(() => {
+                    if (this.tag.id) {
+                        axios.put(this.url, this.tag).then(() => {
                             this.afterEdit();
                         });
                     } else {
-                        axios.post(this.url, this.category).then(() => {
+                        axios.post(this.url, this.tag).then(() => {
                             this.afterEdit();
                         });
                     }
@@ -144,16 +145,16 @@
                 afterEdit: function () {
                     $('#editModal').modal('hide');
                     vm.list(0);
-                    vm.category = {};
+                    vm.tag = {};
                 },
                 // 削除モーダル
                 openDeleteModal: function (id) {
-                    this.category.id = id;
+                    this.tag.id = id;
                     $('#deleteModal').modal();
                 },
                 // 削除
                 remove: function () {
-                    axios.delete(this.url + "/" + this.category.id).then(() => {
+                    axios.delete(this.url + "/" + this.tag.id).then(() => {
                         $('#deleteModal').modal('hide');
                         vm.list(0);
                     });

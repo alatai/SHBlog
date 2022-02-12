@@ -31,4 +31,11 @@ public class AdminPageController {
         return "category/list";
     }
 
+    /**
+     * タグページ
+     */
+    @GetMapping("/tags")
+    public String listTags() {
+        return "tag/list";
+    }
 }
