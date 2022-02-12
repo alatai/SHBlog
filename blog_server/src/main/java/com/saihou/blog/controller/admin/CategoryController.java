@@ -4,10 +4,7 @@ import com.saihou.blog.entity.Category;
 import com.saihou.blog.service.CategoryService;
 import com.saihou.blog.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -34,6 +31,21 @@ public class CategoryController {
                                      @RequestParam(value = "size", defaultValue = "5") Integer size) {
         start = start < 0 ? 0 : start;
 
-        return categoryService.findAll(start, 1, 5);
+        return categoryService.findAll(start, size, 5);
+    }
+
+    @PostMapping("/categories")
+    public void add(@RequestBody Category category) {
+        categoryService.insert(category);
+    }
+
+    @DeleteMapping("/categories/{id}")
+    public void delete(@PathVariable("id") Integer id) {
+        categoryService.deleteById(id);
+    }
+
+    @PutMapping("/categories")
+    public void update(@RequestBody Category category) {
+        categoryService.update(category);
     }
 }

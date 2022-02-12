@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,6 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category insert(Category category) {
+        category.setCreatedDate(new Date());
         return categoryDao.save(category);
     }
 
