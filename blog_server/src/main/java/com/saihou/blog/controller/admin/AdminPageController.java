@@ -38,4 +38,12 @@ public class AdminPageController {
     public String listTags() {
         return "tag/list";
     }
+
+    /**
+     * ログインページ
+     */
+    @GetMapping("/login")
+    public String login() {
+        return "user/login";
+    }
 }

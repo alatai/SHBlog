@@ -2,7 +2,9 @@ package com.saihou.blog.controller.admin;
 
 import com.saihou.blog.entity.Category;
 import com.saihou.blog.service.CategoryService;
+import com.saihou.blog.util.Constant;
 import com.saihou.blog.util.PageResult;
+import com.saihou.blog.util.RestfulResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +29,12 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public PageResult<Category> list(@RequestParam(value = "start", defaultValue = "0") Integer start,
-                                     @RequestParam(value = "size", defaultValue = "5") Integer size) {
+    public RestfulResult<PageResult<Category>> list(@RequestParam(value = "start", defaultValue = "0") Integer start,
+                                                    @RequestParam(value = "size", defaultValue = "5") Integer size) {
         start = start < 0 ? 0 : start;
+        PageResult<Category> pageResult = categoryService.findAll(start, size, 5);
 
-        return categoryService.findAll(start, size, 5);
+        return new RestfulResult<>(Constant.SUCCESS_STATUS, Constant.SUCCESS_MESSAGE, pageResult);
     }
 
     @PostMapping("/categories")

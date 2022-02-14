@@ -109,7 +109,7 @@
                             start: start
                         }
                     }).then((response) => {
-                        this.pageResult = response.data;
+                        this.pageResult = response.data.content;
                     }).catch(function (error) {
                         console.log(error);
                     });

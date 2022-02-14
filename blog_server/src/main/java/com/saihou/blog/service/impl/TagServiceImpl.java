@@ -30,7 +30,6 @@ public class TagServiceImpl implements TagService {
         this.tagDao = tagDao;
     }
 
-
     @Override
     public List<Tag> findAll() {
         return tagDao.findAll();

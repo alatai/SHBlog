@@ -1,6 +1,10 @@
 package com.saihou.blog.config;
 
+import com.saihou.blog.interceptor.LoginInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -10,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * @version 1.0
  * @date 2022/02/11 12:54
  */
+@Configuration
 public class MvcConfiguration extends WebMvcConfigurationSupport {
 
     /**
@@ -36,4 +41,22 @@ public class MvcConfiguration extends WebMvcConfigurationSupport {
                 .allowedHeaders("*");
     }
 
+    /**
+     * ユーザ登録インターセプター
+     */
+    @Bean
+    public LoginInterceptor loginInterceptor() {
+        return new LoginInterceptor();
+    }
+
+    /**
+     * インターセプターパス設定
+     */
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor())
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/login")
+                .excludePathPatterns("/admin/data/user");
+    }
 }
