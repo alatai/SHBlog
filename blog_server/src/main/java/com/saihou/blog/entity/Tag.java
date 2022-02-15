@@ -26,6 +26,8 @@ public class Tag {
 
     private Date createdDate;
 
+    private Date modifiedDate;
+
     public Integer getId() {
         return id;
     }
@@ -48,6 +50,14 @@ public class Tag {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     @Override

@@ -72,7 +72,7 @@ public class ShiroConfiguration {
     }
 
     /**
-     * Shiroアノデーション設定
+     * Shiroアノテーション設定
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SessionsSecurityManager sessionsSecurityManager) {

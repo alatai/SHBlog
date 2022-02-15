@@ -39,18 +39,18 @@
 
                         <form>
                             <div class="form-group mt-3">
-                                <label for="name"></label>
+                                <label class="login-label" for="name"></label>
                                 <input id="name" class="form-control" style="height: 48px"
                                        type="text" placeholder="Username" v-model="user.name">
                             </div>
                             <div class="form-group">
-                                <label for="password"></label>
+                                <label class="login-label" for="password"></label>
                                 <input id="password" class="form-control" style="height: 48px"
                                        type="password" placeholder="Password" v-model="user.password">
                             </div>
                             <div class="form-group">
-                                <button type="button" class="form-control btn btn-primary"
-                                        style="height: 48px" v-on:click="login()">ログイン
+                                <button class="form-control btn btn-primary" style="height: 48px"
+                                        type="button" v-on:click="login()">ログイン
                                 </button>
                             </div>
                             <div class="form-group d-md-flex">
@@ -77,11 +77,11 @@
             },
             methods: {
                 login: function () {
-                    console.log(this.user);
-
                     axios.post(this.url, this.user).then((response) => {
                         if (response.data.content === 'login success!') {
                             window.location.href = 'index';
+                        } else {
+
                         }
                     });
                 }

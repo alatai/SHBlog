@@ -4,12 +4,15 @@ import com.saihou.blog.dao.UserDao;
 import com.saihou.blog.entity.User;
 import com.saihou.blog.service.UserService;
 import com.saihou.blog.util.PageResult;
+import com.saihou.blog.util.ShiroUtil;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,6 +60,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
+        String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        String encodePassword = ShiroUtil.encrypt(user.getPassword(), salt);
+
+        user.setSalt(salt);
+        user.setPassword(encodePassword);
+        user.setModifiedDate(new Date());
+
         return userDao.save(user);
     }
 
@@ -64,4 +74,15 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Integer id) {
         userDao.deleteById(id);
     }
+
+    @Override
+    public boolean passwordCheck(User userInDb, String oldPassword) {
+        String passwordInDb = userInDb.getPassword();
+        String saltInDb = userInDb.getSalt();
+
+        String encodePassword = ShiroUtil.encrypt(oldPassword, saltInDb);
+
+        return encodePassword.equals(passwordInDb);
+    }
+
 }

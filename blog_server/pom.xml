@@ -20,6 +20,7 @@
         <java.version>11</java.version>
 
         <!-- バージョン管理 -->
+        <junit.version>4.12</junit.version>
         <shiro.version>1.8.0</shiro.version>
     </properties>
 
@@ -71,6 +72,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- commons-lang -->

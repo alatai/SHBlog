@@ -41,8 +41,6 @@ public class UserRealm extends AuthorizingRealm {
         String password = user.getPassword();
         String salt = user.getSalt();
 
-        System.out.println(user);
-
         return new SimpleAuthenticationInfo(name, password, ByteSource.Util.bytes(salt), getName());
     }
 }

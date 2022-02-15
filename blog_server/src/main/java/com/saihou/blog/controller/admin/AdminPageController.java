@@ -1,5 +1,7 @@
 package com.saihou.blog.controller.admin;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,5 +47,27 @@ public class AdminPageController {
     @GetMapping("/login")
     public String login() {
         return "user/login";
+    }
+
+    /**
+     * ログアウトして，ログインページに移動
+     */
+    @GetMapping("/logout")
+    public String logout() {
+        Subject subject = SecurityUtils.getSubject();
+
+        if (subject.isAuthenticated()) {
+            subject.logout();
+        }
+
+        return "redirect:/admin/login";
+    }
+
+    /**
+     * パスワード管理ページ
+     */
+    @GetMapping("/profile")
+    public String profile() {
+        return "user/profile";
     }
 }

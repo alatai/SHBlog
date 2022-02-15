@@ -27,6 +27,8 @@ public class Category {
 
     private Date createdDate;
 
+    private Date modifiedDate;
+
     public Integer getId() {
         return id;
     }
@@ -49,6 +51,14 @@ public class Category {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     @Override

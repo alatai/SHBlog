@@ -25,4 +25,6 @@ public interface UserService {
     User update(User user);
 
     void deleteById(Integer id);
+
+    boolean passwordCheck(User userInDb, String oldPassword);
 }

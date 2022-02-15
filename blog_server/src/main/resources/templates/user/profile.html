@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head th:replace="header::header('ユーザ管理')">
+</head>
+<body>
+
+<!-- begin of wrapper -->
+<div id="profile" class="wrapper">
+    <!-- nav -->
+    <div th:replace="navbar::nav('ユーザ管理')"></div>
+    <!-- sidebar -->
+    <div th:replace="sidebar::sidebar('profile')"></div>
+
+    <!-- begin of content-wrapper -->
+    <div class="content-wrapper">
+        <!-- begin of content -->
+        <div class="content">
+            <!-- begin of container-fluid -->
+            <div class="container-fluid">
+                <!-- begin of card -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">ユーザ管理</h3>
+                    </div>
+
+                    <!-- begin of card-body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <form role="form" id="userPasswordForm">
+                                    <div class="form-group">
+                                        <label class="profile-label" for="newName"></label>
+                                        <input id="newName" class="form-control profile-input"
+                                               name="newName" type="text" placeholder="New name"
+                                               v-model="params.newName">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="profile-label" for="oldPassword"></label>
+                                        <input id="oldPassword" class="form-control profile-input"
+                                               type="password" placeholder="Old password"
+                                               v-model="params.oldPassword">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="profile-label" for="newPassword"></label>
+                                        <input id="newPassword" class="form-control profile-input"
+                                               type="password" placeholder="New password"
+                                               v-model="params.newPassword">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="profile-label" for="reNewPassword"></label>
+                                        <input id="reNewPassword" class="form-control profile-input"
+                                               type="password" placeholder="New password confirm"
+                                               v-model="params.reNewPassword">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-success profile-btn" type="button"
+                                                v-on:click="confirm()">
+                                            確認
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end of card-body -->
+                </div>
+                <!-- end of card -->
+            </div>
+            <!-- end of container-fluid -->
+        </div>
+        <!-- end of content -->
+    </div>
+    <!-- end of content-wrapper -->
+
+    <!-- footer -->
+    <div th:replace="footer::footer"></div>
+</div>
+<!-- end of wrapper -->
+
+<script type="text/javascript">
+    $(() => {
+        let vm = new Vue({
+            el: '#profile',
+            data: {
+                url: 'data/user',
+                params: {}
+            },
+            mounted: function () {
+                this.load();
+            },
+            methods: {
+                // 旧データをロードする
+                load: function () {
+                    axios.get(this.url).then((response) => {
+                        console.log(response);
+                        this.params.newName = response.data.content.name;
+                        console.log(this.params)
+                    });
+                },
+                // 編集確認
+                confirm: function () {
+                    if (this.params.newPassword !== this.params.reNewPassword) {
+                        console.log('同じパスワードを入力してください。');
+
+                        return;
+                    }
+
+                    axios.put(this.url, this.params).then((response) => {
+                        if (response.data.content === 'success') {
+                            window.location.href = 'login';
+                        } else {
+                            console.log(response.data.content);
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
