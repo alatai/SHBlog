@@ -98,9 +98,8 @@
                 // 旧データをロードする
                 load: function () {
                     axios.get(this.url).then((response) => {
-                        console.log(response);
+                        this.params = response.data.content;
                         this.params.newName = response.data.content.name;
-                        console.log(this.params)
                     });
                 },
                 // 編集確認
