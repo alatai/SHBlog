@@ -11,4 +11,5 @@ public class Constant {
 
     public final static int SUCCESS_STATUS = 200;
     public final static String SUCCESS_MESSAGE = "SUCCESS";
+    public final static String UPLOAD_PATH = "/img/blog/";
 }

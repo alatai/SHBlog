@@ -90,5 +90,15 @@
     margin: 0 auto 36px;
 }
 
-
 /* end of profile */
+
+/* begin of blog */
+.blog-row {
+    margin-bottom: 20px
+}
+
+.blog-btn {
+    width: 100px;
+}
+
+/* end of blog */

@@ -57,7 +57,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category update(Category category) {
         category.setModifiedDate(new Date());
-
         return categoryDao.save(category);
     }
 

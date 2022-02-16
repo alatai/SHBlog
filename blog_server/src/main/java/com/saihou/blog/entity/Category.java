@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * カテゴリ
@@ -28,6 +29,10 @@ public class Category {
     private Date createdDate;
 
     private Date modifiedDate;
+
+    // 表にないフィールド
+    @Transient
+    private List<Blog> blogs;
 
     public Integer getId() {
         return id;
@@ -61,12 +66,22 @@ public class Category {
         this.modifiedDate = modifiedDate;
     }
 
+    public List<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", createdDate=" + createdDate +
+                ", modifiedDate=" + modifiedDate +
+                ", blogs=" + blogs +
                 '}';
     }
 }

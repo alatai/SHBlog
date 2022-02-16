@@ -64,10 +64,18 @@ public class AdminPageController {
     }
 
     /**
-     * パスワード管理ページ
+     * ユーザ管理ページ
      */
     @GetMapping("/profile")
     public String profile() {
         return "user/profile";
+    }
+
+    /**
+     * ブログ編集ページ
+     */
+    @GetMapping("/blog")
+    public String editBlog() {
+        return "blog/edit";
     }
 }

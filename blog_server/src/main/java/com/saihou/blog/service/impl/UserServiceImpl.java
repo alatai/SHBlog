@@ -79,7 +79,6 @@ public class UserServiceImpl implements UserService {
     public boolean passwordCheck(User userInDb, String oldPassword) {
         String passwordInDb = userInDb.getPassword();
         String saltInDb = userInDb.getSalt();
-
         String encodePassword = ShiroUtil.encrypt(oldPassword, saltInDb);
 
         return encodePassword.equals(passwordInDb);

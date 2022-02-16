@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head th:replace="header::header('Blog 作成')">
+</head>
+<!-- editor.md css -->
+<link rel="stylesheet" th:href="@{/editormd/css/editormd.min.css}">
+<!-- editor.md js -->
+<script type="text/javascript" th:src="@{/editormd/editormd.js}"></script>
+<body>
+
+<!-- begin of wrapper -->
+<div id="blog" class="wrapper">
+    <!-- nav -->
+    <div th:replace="navbar::nav('ブログ作成')"></div>
+    <!-- sidebar -->
+    <div th:replace="sidebar::sidebar('edit')"></div>
+
+    <!-- begin of content-wrapper -->
+    <div class="content-wrapper">
+        <!-- begin of content -->
+        <div class="content">
+            <!-- begin of container-fluid -->
+            <div class="container-fluid">
+                <!-- begin of card -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">ブログ作成</h3>
+                    </div>
+
+                    <!-- begin of card-body -->
+                    <div class="card-body">
+                        <div class="row blog-row">
+                            <div class="col">
+                                <input class="form-control" type="text"
+                                       placeholder="bolg title" v-model="blog.title">
+                            </div>
+                            <div class="col">
+                                <select class="form-control" type="text"
+                                        v-model="blog.category">
+                                    <option disabled value="">カテゴリ</option>
+                                    <option v-for="category in categories" :value="category">
+                                        {{ category.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row blog-row">
+                            <div class="col">
+                                <input class="form-control" type="text"
+                                       placeholder="bolg subtitle" v-model="blog.subtitle">
+                            </div>
+                            <div class="col">
+                                <select class="form-control" type="text">
+                                    <option disabled value="" select>タグ</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="editor">
+                            <textarea style="display:none;"></textarea>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-primary blog-btn"
+                                    type="button" v-on:click="confirm()">
+                                提 出
+                            </button>
+                        </div>
+                    </div>
+                    <!-- end of card-body -->
+                </div>
+                <!-- end of card -->
+            </div>
+            <!-- end of container-fluid -->
+        </div>
+        <!-- end of content -->
+    </div>
+    <!-- end of content-wrapper -->
+
+    <!-- footer -->
+    <div th:replace="footer::footer"></div>
+</div>
+<!-- end of wrapper -->
+
+<script type="text/javascript">
+    $(() => {
+        let editor;
+
+        // vue
+        let vm = new Vue({
+            el: '#blog',
+            data: {
+                url: 'data/blog',
+                blog: {},
+                categories: {},
+                tags: {}
+            },
+            mounted: function () {
+                this.load();
+            },
+            methods: {
+                // 初期化
+                load: function () {
+                    // editormdの設定
+                    editor = editormd('editor', {
+                        width: '100%',
+                        height: 640,
+                        syncScrolling: 'single',
+                        path: '/editormd/lib/',
+                        // アップロード設定
+                        imageUpload: true,
+                        imageFormats: ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'],
+                        imageUploadURL: '/admin/data/img'
+                    });
+
+                    // カテゴリをロードする
+                    axios.get('data/categories', {
+                        params: {
+                            start: 0,
+                            size: 20
+                        }
+                    }).then((response) => {
+                        this.categories = response.data.content.content;
+                    });
+
+                    // タグをロードする
+                    axios.get('data/tags', {
+                        params: {
+                            start: 0,
+                            size: 20
+                        }
+                    }).then((response) => {
+                        this.tags = response.data.content.content;
+                    });
+                },
+                confirm: function () {
+                    this.blog.content = editor.getMarkdown();
+                    console.log(this.blog);
+
+                    axios.post(this.url, this.blog).then((response) => {
+                        console.log(response);
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

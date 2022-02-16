@@ -57,7 +57,6 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag update(Tag tag) {
         tag.setModifiedDate(new Date());
-
         return tagDao.save(tag);
     }
 
