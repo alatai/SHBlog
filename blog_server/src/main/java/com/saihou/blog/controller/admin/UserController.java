@@ -46,9 +46,8 @@ public class UserController {
             return new RestfulResult<>(Constant.SUCCESS_STATUS,
                     Constant.SUCCESS_MESSAGE, "login success!");
         } catch (AuthenticationException e) {
-            System.out.println(e.getMessage());
             return new RestfulResult<>(Constant.SUCCESS_STATUS,
-                    Constant.SUCCESS_MESSAGE, e.getMessage());
+                    Constant.SUCCESS_MESSAGE, "パスワードまたはユーザネームが間違っている！");
         }
     }
 
@@ -70,10 +69,10 @@ public class UserController {
 
         if (!userService.passwordCheck(oldUser, oldPassword)) {
             return new RestfulResult<>(Constant.SUCCESS_STATUS,
-                    Constant.SUCCESS_MESSAGE, "パスワード間違い");
+                    Constant.SUCCESS_MESSAGE, "旧パスワード間違い！");
         } else if (userService.passwordCheck(oldUser, newPassword)) {
             return new RestfulResult<>(Constant.SUCCESS_STATUS,
-                    Constant.SUCCESS_MESSAGE, "同じパスワード");
+                    Constant.SUCCESS_MESSAGE, "旧パスワードと同じ！");
         }
 
         oldUser.setName(newName);

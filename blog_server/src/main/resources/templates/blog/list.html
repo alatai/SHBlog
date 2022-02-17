@@ -59,12 +59,18 @@
                                     <td>{{ blog.createdDate | formatDateFilter }}</td>
                                     <td>
                                         <a :href="'blogs/' + blog.id">
-                                            <i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i>
+                                            <i class="fa-solid fa-pen-to-square" v-if="blog.status == 0"></i>
                                         </a>
                                     </td>
                                     <td>
                                         <a href="javascript:" v-on:click="openDeleteModal(blog.id)">
-                                            <i class="fas fa-trash-alt"></i>
+                                            <i class="fa-solid fa-trash-can" v-if="blog.status == 0"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:" v-on:click="release(blog)">
+                                            <i class="fa-solid fa-check" v-if="blog.status == 0"></i>
+                                            <i class="fa-solid fa-circle-check" v-if="blog.status == 1"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -75,6 +81,8 @@
 
                         <!-- pageNav -->
                         <div th:replace="pagenav::pagenav"></div>
+                        <!-- delete modal -->
+                        <div th:replace="blog/delete::delete"></div>
                     </div>
                     <!-- end of card-body -->
                 </div>
@@ -98,6 +106,7 @@
             data: {
                 url: 'data/blogs',
                 pageResult: {},
+                blog: {}
             },
             mounted: function () {
                 this.list(0);
@@ -119,6 +128,37 @@
                         this.list(num);
                     }
                 },
+                // ブログの状態を更新する
+                release: function (blog) {
+                    console.log(blog);
+                    let status = blog.status;
+
+                    if (status === 0) {
+                        blog.status = 1;
+                        axios.put(this.url, blog).then(() => {
+                            this.list(0);
+                            alert('リリースした！');
+                        });
+                    } else if (status === 1) {
+                        blog.status = 0;
+                        axios.put(this.url, blog).then(() => {
+                            this.list(0);
+                            alert('キャンセルした！');
+                        });
+                    }
+                },
+                // 削除モーダル
+                openDeleteModal: function (id) {
+                    this.blog.id = id;
+                    $('#deleteModal').modal();
+                },
+                // 削除
+                remove: function () {
+                    axios.delete(this.url + "/" + this.blog.id).then(() => {
+                        $('#deleteModal').modal('hide');
+                        this.list(0);
+                    });
+                }
             }
         });
     });

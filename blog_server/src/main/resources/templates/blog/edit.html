@@ -33,7 +33,7 @@
                         <div class="row blog-row">
                             <div class="col">
                                 <input class="form-control" type="text"
-                                       placeholder="bolg title" v-model="blog.title">
+                                       placeholder="Title" v-model="blog.title">
                             </div>
                             <div class="col">
                                 <select class="form-control" type="text"
@@ -49,11 +49,12 @@
                         <div class="row blog-row">
                             <div class="col">
                                 <input class="form-control" type="text"
-                                       placeholder="bolg subtitle" v-model="blog.subtitle">
+                                       placeholder="Subtitle" v-model="blog.subtitle">
                             </div>
                             <div class="col">
                                 <select class="form-control" type="text">
                                     <option disabled value="" select>タグ</option>
+                                    <option>A</option>
                                     <option>B</option>
                                     <option>C</option>
                                 </select>
@@ -92,7 +93,6 @@
         let editor;
         let pathname = window.location.pathname;
         let blogId = pathname.charAt(pathname.length - 1)
-        console.log(blogId);
 
         // vue
         let vm = new Vue({
@@ -150,6 +150,20 @@
                 },
                 addOrUpdate: function () {
                     this.blog.content = editor.getMarkdown();
+
+                    if (!this.blog.title || this.blog.title === '') {
+                        alert('タイトルを入力してください！');
+                        return;
+                    } else if (!this.blog.subtitle || this.blog.subtitle === '') {
+                        alert('サブタイトルを入力してください！');
+                        return;
+                    } else if (this.blog.content === '') {
+                        alert('内容を入力してください！');
+                        return;
+                    } else if (!this.blog.category) {
+                        alert('カテゴリを選んでください！');
+                        return;
+                    }
 
                     // 更新
                     if (this.blog.id) {

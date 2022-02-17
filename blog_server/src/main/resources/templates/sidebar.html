@@ -27,7 +27,7 @@
                 <li class="nav-header">Welcome</li>
                 <li class="nav-item">
                     <a th:href="@{/admin/index}" th:class="${path}=='index'?'nav-link active':'nav-link'">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fa-solid fa-gauge-high"></i>
                         <p>
                             ダッシュボード
                         </p>
@@ -36,7 +36,7 @@
                 <li class="nav-item">
                     <a th:href="@{/admin/blog}"
                        th:class="${path}=='edit'?'nav-link active':'nav-link'">
-                        <i class="nav-icon fas fa-pen-square"></i>
+                        <i class="nav-icon fa-solid fa-square-pen"></i>
                         <p>
                             ブログ作成
                         </p>
@@ -45,7 +45,7 @@
                 <li class="nav-header">内容管理</li>
                 <li class="nav-item">
                     <a th:href="@{/admin/blogs}" th:class="${path}=='blogs'?'nav-link active':'nav-link'">
-                        <i class="nav-icon fa fa-list-alt" aria-hidden="true"></i>
+                        <i class="nav-icon fa-solid fa-table-list" aria-hidden="true"></i>
                         <p>
                             ブログ管理
                         </p>
@@ -53,7 +53,7 @@
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/admin/comments}" th:class="${path}=='comments'?'nav-link active':'nav-link'">
-                        <i class="nav-icon fa fa-comments" aria-hidden="true"></i>
+                        <i class="nav-icon fa-solid fa-comments" aria-hidden="true"></i>
                         <p>
                             コメント管理
                         </p>
@@ -61,7 +61,7 @@
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/admin/categories}" th:class="${path}=='categories'?'nav-link active':'nav-link'">
-                        <i class="nav-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <i class="nav-icon fa-solid fa-bookmark" aria-hidden="true"></i>
                         <p>
                             カテゴリ管理
                         </p>
@@ -69,7 +69,7 @@
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/admin/tags}" th:class="${path}=='tags'?'nav-link active':'nav-link'">
-                        <i class="nav-icon fa fa-tags" aria-hidden="true"></i>
+                        <i class="nav-icon fa-solid fa-tags" aria-hidden="true"></i>
                         <p>
                             タグ管理
                         </p>
@@ -79,20 +79,20 @@
                 <li class="nav-item">
                     <a th:href="@{/admin/configurations}"
                        th:class="${path}=='configurations'?'nav-link active':'nav-link'">
-                        <i class="nav-icon fa fa-wrench"></i>
+                        <i class="nav-icon fa-solid fa-wrench"></i>
                         <p>システム配置</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/admin/profile}"
                        th:class="${path}=='profile'?'nav-link active':'nav-link'">
-                        <i class="nav-icon fas fa-user-cog"></i>
+                        <i class="nav-icon fa-solid fa-user-gear"></i>
                         <p>ユーザ管理</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/admin/logout}" class="nav-link">
-                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <i class="nav-icon fa-solid fa-right-from-bracket"></i>
                         <p>ログアウト</p>
                     </a>
                 </li>

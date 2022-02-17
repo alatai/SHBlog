@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <button class="btn btn-primary profile-btn" type="button"
                                                 v-on:click="confirm()">
-                                            確認
+                                            確 認
                                         </button>
                                     </div>
                                 </form>
@@ -105,7 +105,7 @@
                 // 編集確認
                 confirm: function () {
                     if (this.params.newPassword !== this.params.reNewPassword) {
-                        console.log('同じパスワードを入力してください。');
+                        alert('同じパスワードを入力してください。');
 
                         return;
                     }
@@ -114,7 +114,7 @@
                         if (response.data.content === 'success') {
                             window.location.href = 'login';
                         } else {
-                            console.log(response.data.content);
+                            alert(response.data.content);
                         }
                     });
                 }

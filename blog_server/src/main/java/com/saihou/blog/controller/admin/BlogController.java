@@ -61,6 +61,11 @@ public class BlogController {
                 Constant.SUCCESS_MESSAGE, "OK!");
     }
 
+    @DeleteMapping("/blogs/{id}")
+    public void delete(@PathVariable("id") Integer id) {
+        blogService.deleteById(id);
+    }
+
     @PostMapping("/img")
     public String upload(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile image) {
         return blogService.upload(request, image);
