@@ -110,4 +110,9 @@ public class BlogServiceImpl implements BlogService {
 
         return jsonObject.toString();
     }
+
+    @Override
+    public long countAllBlogs() {
+        return blogDao.count();
+    }
 }

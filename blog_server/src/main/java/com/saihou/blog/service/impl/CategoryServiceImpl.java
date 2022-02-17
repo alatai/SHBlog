@@ -64,4 +64,9 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteById(Integer id) {
         categoryDao.deleteById(id);
     }
+
+    @Override
+    public long countAllCategories() {
+        return categoryDao.count();
+    }
 }

@@ -29,4 +29,6 @@ public interface BlogService {
     void deleteById(Integer id);
 
     String upload(HttpServletRequest request, MultipartFile image);
+
+    long countAllBlogs();
 }
