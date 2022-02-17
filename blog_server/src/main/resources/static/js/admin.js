@@ -10,3 +10,10 @@ Vue.filter('formatDateFilter', function (dateValue, formatString) {
 
     return moment(dateValue).format(formatString);
 });
+
+// 数字チャック
+function isNumber(value) {
+    let reg = /^[0-9]+.?[0-9]*/;
+
+    return reg.test(value);
+}

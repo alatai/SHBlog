@@ -1,6 +1,7 @@
 package com.saihou.blog.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.saihou.blog.util.Constant;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,7 +29,11 @@ public class Blog {
 
     private String content;
 
-    private Integer status; // ブログの状態
+    // ブログの状態
+    // 0: WAIT_RELEASE
+    // 1: RELEASED
+    // 2: DELETED
+    private Integer status;
 
     private Date createdDate;
 
@@ -37,6 +42,9 @@ public class Blog {
     @ManyToOne
     @JoinColumn(name = "cid")
     private Category category;
+
+    @Transient
+    private String statusDesc;
 
     public Integer getId() {
         return id;
@@ -102,6 +110,30 @@ public class Blog {
         this.category = category;
     }
 
+    public String getStatusDesc() {
+        String desc;
+
+        switch (status) {
+            case Constant.BLOG_WAIT_RELEASE:
+                desc = Constant.BLOG_WAIT_RELEASE_DESC;
+                break;
+            case Constant.BLOG_RELEASED:
+                desc = Constant.BLOG_RELEASED_DESC;
+                break;
+            case Constant.BLOG_DELETED:
+                desc = Constant.BLOG_DELETED_DESC;
+                break;
+            default:
+                desc = Constant.BLOG_ERROR_DESC;
+        }
+
+        return desc;
+    }
+
+    public void setStatusDesc(String statusDesc) {
+        this.statusDesc = statusDesc;
+    }
+
     @Override
     public String toString() {
         return "Blog{" +
@@ -113,6 +145,7 @@ public class Blog {
                 ", createdDate=" + createdDate +
                 ", modifiedDate=" + modifiedDate +
                 ", category=" + category +
+                ", statusDesc='" + statusDesc + '\'' +
                 '}';
     }
 }

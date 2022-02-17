@@ -1,10 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head th:replace="header::header('Blog 管理')">
 </head>
 <body>
+
+<!-- begin of wrapper -->
+<div id="blogs" class="wrapper">
+    <!-- nav -->
+    <div th:replace="navbar::nav('ブログ')"></div>
+    <!-- sidebar -->
+    <div th:replace="sidebar::sidebar('blogs')"></div>
+
+    <!-- begin of content-wrapper -->
+    <div class="content-wrapper">
+        <!-- begin of content -->
+        <div class="content">
+            <!-- begin of container-fluid -->
+            <div class="container-fluid">
+                <!-- begin of card -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">ブログ管理</h3>
+                    </div>
+
+                    <!-- begin of card-body -->
+                    <div class="card-body">
+                        <div class="grid-btn">
+                            <button class="btn btn-primary">
+                                <a href="blog" style="color: #fff">
+                                    <i class="fa fa-plus"></i>&nbsp;追加
+                                </a>
+                            </button>
+                        </div>
+                        <br>
+
+                        <!-- begin of table -->
+                        <div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">タイトル</th>
+                                    <th scope="col">カテゴリ</th>
+                                    <th scope="col">状態</th>
+                                    <th scope="col">作成日</th>
+                                    <th scope="col">編集</th>
+                                    <th scope="col">削除</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="blog in pageResult.content">
+                                    <td>{{ blog.id }}</td>
+                                    <td>{{ blog.title }}</td>
+                                    <td>{{ blog.category.name }}</td>
+                                    <td>{{ blog.statusDesc }}</td>
+                                    <td>{{ blog.createdDate | formatDateFilter }}</td>
+                                    <td>
+                                        <a :href="'blogs/' + blog.id">
+                                            <i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:" v-on:click="openDeleteModal(blog.id)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end of table -->
+
+                        <!-- pageNav -->
+                        <div th:replace="pagenav::pagenav"></div>
+                    </div>
+                    <!-- end of card-body -->
+                </div>
+                <!-- end of card -->
+            </div>
+            <!-- end of container-fluid -->
+        </div>
+        <!-- end of content -->
+    </div>
+    <!-- end of content-wrapper -->
+
+    <!-- footer -->
+    <div th:replace="footer::footer"></div>
+</div>
+<!-- end of wrapper -->
+
+<script type="text/javascript">
+    $(() => {
+        let vm = new Vue({
+            el: '#blogs',
+            data: {
+                url: 'data/blogs',
+                pageResult: {},
+            },
+            mounted: function () {
+                this.list(0);
+            },
+            methods: {
+                // 非同期でデータを取得する
+                list: function (start) {
+                    axios.get(this.url, {
+                        params: {
+                            start: start
+                        }
+                    }).then((response) => {
+                        this.pageResult = response.data.content;
+                    });
+                },
+                // ぺージナビコントロール
+                goPage: function (num) {
+                    if (num !== vm.pageResult.number) {
+                        this.list(num);
+                    }
+                },
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

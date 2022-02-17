@@ -4,6 +4,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -72,10 +73,26 @@ public class AdminPageController {
     }
 
     /**
-     * ブログ編集ページ
+     * ブログ作成ページ
      */
     @GetMapping("/blog")
-    public String editBlog() {
+    public String addBlog() {
+        return "blog/edit";
+    }
+
+    /**
+     * ブログページ
+     */
+    @GetMapping("/blogs")
+    public String listBlogs() {
+        return "blog/list";
+    }
+
+    /**
+     * ブログ編集ページ
+     */
+    @GetMapping("/blogs/{id}")
+    public String editBlog(@PathVariable("id") Integer id) {
         return "blog/edit";
     }
 }

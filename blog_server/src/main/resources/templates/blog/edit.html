@@ -61,12 +61,13 @@
                         </div>
 
                         <div id="editor">
-                            <textarea style="display:none;"></textarea>
+                            <textarea style="display:none;"
+                                      v-model="blog.content"></textarea>
                         </div>
 
                         <div>
                             <button class="btn btn-primary blog-btn"
-                                    type="button" v-on:click="confirm()">
+                                    type="button" v-on:click="addOrUpdate()">
                                 提 出
                             </button>
                         </div>
@@ -89,12 +90,15 @@
 <script type="text/javascript">
     $(() => {
         let editor;
+        let pathname = window.location.pathname;
+        let blogId = pathname.charAt(pathname.length - 1)
+        console.log(blogId);
 
         // vue
         let vm = new Vue({
             el: '#blog',
             data: {
-                url: 'data/blog',
+                url: 'data/blogs',
                 blog: {},
                 categories: {},
                 tags: {}
@@ -117,8 +121,15 @@
                         imageUploadURL: '/admin/data/img'
                     });
 
+                    // 編集の場合、ブログの詳細をロードする
+                    if (isNumber(blogId)) {
+                        axios.get('/admin/data/blog/' + blogId).then((response) => {
+                            this.blog = response.data.content;
+                        });
+                    }
+
                     // カテゴリをロードする
-                    axios.get('data/categories', {
+                    axios.get('/admin/data/categories', {
                         params: {
                             start: 0,
                             size: 20
@@ -128,7 +139,7 @@
                     });
 
                     // タグをロードする
-                    axios.get('data/tags', {
+                    axios.get('/admin/data/tags', {
                         params: {
                             start: 0,
                             size: 20
@@ -137,13 +148,23 @@
                         this.tags = response.data.content.content;
                     });
                 },
-                confirm: function () {
+                addOrUpdate: function () {
                     this.blog.content = editor.getMarkdown();
-                    console.log(this.blog);
 
-                    axios.post(this.url, this.blog).then((response) => {
-                        console.log(response);
-                    });
+                    // 更新
+                    if (this.blog.id) {
+                        axios.put('/admin/data/blogs', this.blog).then((response) => {
+                            if (response.data.message === 'SUCCESS') {
+                                window.location.href = '/admin/blogs';
+                            }
+                        });
+                    } else { // 追加
+                        axios.post(this.url, this.blog).then((response) => {
+                            if (response.data.message === 'SUCCESS') {
+                                window.location.href = '/admin/blogs';
+                            }
+                        });
+                    }
                 }
             }
         });

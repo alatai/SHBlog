@@ -2,7 +2,9 @@ package com.saihou.blog.service;
 
 import com.saihou.blog.entity.Blog;
 import com.saihou.blog.util.PageResult;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -25,4 +27,6 @@ public interface BlogService {
     Blog update(Blog blog);
 
     void deleteById(Integer id);
+
+    String upload(HttpServletRequest request, MultipartFile image);
 }
