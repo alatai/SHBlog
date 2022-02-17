@@ -229,46 +229,46 @@
         lang : {
             name        : "zh-cn",
             description : "开源在线Markdown编辑器<br/>Open source online Markdown editor.",
-            tocTitle    : "目录",
+            tocTitle    : "コンテンツ",
             toolbar     : {
-                undo             : "撤销（Ctrl+Z）",
-                redo             : "重做（Ctrl+Y）",
-                bold             : "粗体",
-                del              : "删除线",
+                undo             : "キャンセル（Ctrl+Z）",
+                redo             : "やり直す（Ctrl+Y）",
+                bold             : "太字",
+                del              : "打ち消し線",
                 italic           : "斜体",
                 quote            : "引用",
-                ucwords          : "将每个单词首字母转成大写",
-                uppercase        : "将所选转换成大写",
-                lowercase        : "将所选转换成小写",
-                h1               : "标题1",
-                h2               : "标题2",
-                h3               : "标题3",
-                h4               : "标题4",
-                h5               : "标题5",
-                h6               : "标题6",
-                "list-ul"        : "无序列表",
-                "list-ol"        : "有序列表",
-                hr               : "横线",
-                link             : "链接",
-                "reference-link" : "引用链接",
-                image            : "添加图片",
-                code             : "行内代码",
-                "preformatted-text" : "预格式文本 / 代码块（缩进风格）",
-                "code-block"     : "代码块（多语言风格）",
-                table            : "添加表格",
-                datetime         : "日期时间",
-                emoji            : "Emoji表情",
-                "html-entities"  : "HTML实体字符",
-                pagebreak        : "插入分页符",
-                "goto-line"      : "跳转到行",
-                watch            : "关闭实时预览",
-                unwatch          : "开启实时预览",
-                preview          : "全窗口预览HTML（按 Shift + ESC还原）",
-                fullscreen       : "全屏（按ESC还原）",
-                clear            : "清空",
-                search           : "搜索",
-                help             : "使用帮助",
-                info             : "关于" + editormd.title
+                ucwords          : "頭文字を大文字に",
+                uppercase        : "大文字",
+                lowercase        : "小文字",
+                h1               : "見出し1",
+                h2               : "見出し2",
+                h3               : "見出し3",
+                h4               : "見出し4",
+                h5               : "見出し5",
+                h6               : "見出し6",
+                "list-ul"        : "ランダムリスト",
+                "list-ol"        : "順次リスト",
+                hr               : "水平線",
+                link             : "リンク",
+                "reference-link" : "引用リンク",
+                image            : "写真追加",
+                code             : "コード",
+                "preformatted-text" : "コード（インデント）",
+                "code-block"     : "コード（多言語）",
+                table            : "テーブル追加",
+                datetime         : "日時",
+                emoji            : "Emoji",
+                "html-entities"  : "HTMLキャラクタ",
+                pagebreak        : "ページ",
+                "goto-line"      : "goto-line",
+                watch            : "プレビューオープン",
+                unwatch          : "プレビュークローズ",
+                preview          : "フルプレビューHTML（Shift + ESC 戻す）",
+                fullscreen       : "フルウィンドウ（ESC 戻す）",
+                clear            : "クリア",
+                search           : "検索",
+                help             : "ヘルプ",
+                info             : "アバウト" + editormd.title
             },
             buttons : {
                 enter  : "確認",
@@ -277,20 +277,20 @@
             },
             dialog : {
                 link : {
-                    title    : "添加链接",
-                    url      : "链接地址",
-                    urlTitle : "链接标题",
-                    urlEmpty : "错误：请填写链接地址。"
+                    title    : "リンク追加",
+                    url      : "URL",
+                    urlTitle : "リンクタイトル",
+                    urlEmpty : "エラー：リンクを入力。"
                 },
                 referenceLink : {
-                    title    : "添加引用链接",
+                    title    : "リンク追加",
                     name     : "引用名称",
-                    url      : "链接地址",
-                    urlId    : "链接ID",
-                    urlTitle : "链接标题",
-                    nameEmpty: "错误：引用链接的名称不能为空。",
-                    idEmpty  : "错误：请填写引用链接的ID。",
-                    urlEmpty : "错误：请填写引用链接的URL地址。"
+                    url      : "URL",
+                    urlId    : "リンクID",
+                    urlTitle : "リンクタイトル",
+                    nameEmpty: "エラー：名称を入力。",
+                    idEmpty  : "エラー：IDを入力。",
+                    urlEmpty : "エラー：URLを入力。"
                 },
                 image : {
                     title    : "写真追加",
@@ -298,27 +298,27 @@
                     link     : "写真LINK",
                     alt      : "写真DESC",
                     uploadButton     : "ローカル",
-                    imageURLEmpty    : "エラ：图片地址不能为空。",
-                    uploadFileEmpty  : "错误：上传的图片不能为空。",
-                    formatNotAllowed : "错误：只允许上传图片文件，允许上传的图片文件格式有："
+                    imageURLEmpty    : "エラー：あとレスを入力。",
+                    uploadFileEmpty  : "エラー：写真をアップロード。",
+                    formatNotAllowed : "エラー：以下の拡張子："
                 },
                 preformattedText : {
-                    title             : "添加预格式文本或代码块", 
-                    emptyAlert        : "错误：请填写预格式文本或代码的内容。"
+                    title             : "コードブロック",
+                    emptyAlert        : "エラー：正しい入力をしてください。"
                 },
                 codeBlock : {
-                    title             : "添加代码块",                    
-                    selectLabel       : "代码语言：",
-                    selectDefaultText : "请选择代码语言",
-                    otherLanguage     : "其他语言",
-                    unselectedLanguageAlert : "错误：请选择代码所属的语言类型。",
-                    codeEmptyAlert    : "错误：请填写代码内容。"
+                    title             : "コードブロック",
+                    selectLabel       : "言語：",
+                    selectDefaultText : "言語を選択",
+                    otherLanguage     : "他の言語",
+                    unselectedLanguageAlert : "エラー：言語タイプ。",
+                    codeEmptyAlert    : "エラー：入力してください。"
                 },
                 htmlEntities : {
-                    title : "HTML 实体字符"
+                    title : "HTMLキャラクタ"
                 },
                 help : {
-                    title : "使用帮助"
+                    title : "ヘルプ"
                 }
             }
         }
