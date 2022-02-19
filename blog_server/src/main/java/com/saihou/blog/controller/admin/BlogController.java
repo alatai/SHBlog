@@ -67,6 +67,7 @@ public class BlogController {
     }
 
     @PostMapping("/img")
+    // パラメーターネームはフロントエンド側と同じに
     public String upload(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile image) {
         return blogService.upload(request, image);
     }

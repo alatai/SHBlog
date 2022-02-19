@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +57,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
     public Blog insert(Blog blog) {
         blog.setStatus(Constant.BLOG_WAIT_RELEASE);
         blog.setCreatedDate(new Date());
@@ -62,6 +65,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
     public Blog update(Blog blog) {
         blog.setModifiedDate(new Date());
         return blogDao.save(blog);
