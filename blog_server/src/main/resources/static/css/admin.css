@@ -4,101 +4,101 @@
 
 /* begin of login*/
 .login-body {
-    font-family: "Lato", Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.8;
-    font-weight: normal;
-    background: #f8f9fd;
-    color: gray;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: normal;
+  background: #f8f9fd;
+  color: gray;
 }
 
 .section {
-    padding: 7em 0;
+  padding: 7em 0;
 }
 
 .wrap {
-    width: 100%;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 10px 34px -15px rgb(0 0 0 / 24%);
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 34px -15px rgb(0 0 0 / 24%);
 }
 
 .wrap .img {
-    height: 200px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url(../img/login.webp);
+  height: 200px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url(../img/login.webp);
 }
 
 .login-wrap {
-    position: relative;
+  position: relative;
 }
 
 .social-media {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .social-media .social-icon {
-    display: block;
-    width: 40px;
-    height: 40px;
-    margin-right: 5px;
-    border-radius: 50%;
-    background: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    font-size: 16px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 16px;
 }
 
 .social-media .social-icon i {
-    color: #999;
+  color: #999;
 }
 
 .form-group {
-    position: relative;
-    z-index: 0;
-    margin-bottom: 20px !important;
+  position: relative;
+  z-index: 0;
+  margin-bottom: 20px !important;
 }
 
 .login-label {
-    position: absolute;
+  position: absolute;
 }
 
 .form-group a {
-    color: #808080;
-    text-decoration: none;
-    background-color: transparent;
+  color: #808080;
+  text-decoration: none;
+  background-color: transparent;
 }
 
 /* end of login */
 
 /* begin of profile */
 .profile-label {
-    position: absolute;
+  position: absolute;
 }
 
 .profile-input {
-    height: 48px;
+  height: 48px;
 }
 
 .profile-btn {
-    display: block;
-    width: 100%;
-    height: 48px;
-    margin: 0 auto 36px;
+  display: block;
+  width: 100%;
+  height: 48px;
+  margin: 0 auto 36px;
 }
 
 /* end of profile */
 
 /* begin of blog */
 .blog-row {
-    margin-bottom: 20px
+  margin-bottom: 20px
 }
 
 .blog-btn {
-    width: 100px;
+  width: 100px;
 }
 
 /* end of blog */

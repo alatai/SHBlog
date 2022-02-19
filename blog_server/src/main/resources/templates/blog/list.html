@@ -7,161 +7,161 @@
 
 <!-- begin of wrapper -->
 <div id="blogs" class="wrapper">
-    <!-- nav -->
-    <div th:replace="navbar::nav('ブログ')"></div>
-    <!-- sidebar -->
-    <div th:replace="sidebar::sidebar('blogs')"></div>
+  <!-- nav -->
+  <div th:replace="navbar::nav('ブログ')"></div>
+  <!-- sidebar -->
+  <div th:replace="sidebar::sidebar('blogs')"></div>
 
-    <!-- begin of content-wrapper -->
-    <div class="content-wrapper">
-        <!-- begin of content -->
-        <div class="content">
-            <!-- begin of container-fluid -->
-            <div class="container-fluid">
-                <!-- begin of card -->
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h3 class="card-title">ブログ管理</h3>
-                    </div>
+  <!-- begin of content-wrapper -->
+  <div class="content-wrapper">
+    <!-- begin of content -->
+    <div class="content">
+      <!-- begin of container-fluid -->
+      <div class="container-fluid">
+        <!-- begin of card -->
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title">ブログ管理</h3>
+          </div>
 
-                    <!-- begin of card-body -->
-                    <div class="card-body">
-                        <div class="grid-btn">
-                            <button class="btn btn-primary">
-                                <a href="blog" style="color: #fff">
-                                    <i class="fa fa-plus"></i>&nbsp;追加
-                                </a>
-                            </button>
-                        </div>
-                        <br>
-
-                        <!-- begin of table -->
-                        <div>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">タイトル</th>
-                                    <th scope="col">カテゴリ</th>
-                                    <th scope="col">状態</th>
-                                    <th scope="col">作成日</th>
-                                    <th scope="col">編集</th>
-                                    <th scope="col">削除</th>
-                                    <th scope="col">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="blog in pageResult.content">
-                                    <td>{{ blog.id }}</td>
-                                    <td>{{ blog.title }}</td>
-                                    <td>{{ blog.category.name }}</td>
-                                    <td>{{ blog.statusDesc }}</td>
-                                    <td>{{ blog.createdDate | formatDateFilter }}</td>
-                                    <td>
-                                        <a :href="'blogs/' + blog.id">
-                                            <i class="fa-solid fa-pen-to-square" v-if="blog.status == 0"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:" v-on:click="openDeleteModal(blog.id)">
-                                            <i class="fa-solid fa-trash-can" v-if="blog.status == 0"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:" v-on:click="release(blog)">
-                                            <i class="fa-solid fa-check" v-if="blog.status == 0"></i>
-                                            <i class="fa-solid fa-circle-check" v-if="blog.status == 1"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- end of table -->
-
-                        <!-- pageNav -->
-                        <div th:replace="pagenav::pagenav"></div>
-                        <!-- delete modal -->
-                        <div th:replace="blog/delete::delete"></div>
-                    </div>
-                    <!-- end of card-body -->
-                </div>
-                <!-- end of card -->
+          <!-- begin of card-body -->
+          <div class="card-body">
+            <div class="grid-btn">
+              <button class="btn btn-primary">
+                <a href="blog" style="color: #fff">
+                  <i class="fa fa-plus"></i>&nbsp;追加
+                </a>
+              </button>
             </div>
-            <!-- end of container-fluid -->
-        </div>
-        <!-- end of content -->
-    </div>
-    <!-- end of content-wrapper -->
+            <br>
 
-    <!-- footer -->
-    <div th:replace="footer::footer"></div>
+            <!-- begin of table -->
+            <div>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">タイトル</th>
+                  <th scope="col">カテゴリ</th>
+                  <th scope="col">状態</th>
+                  <th scope="col">作成日</th>
+                  <th scope="col">編集</th>
+                  <th scope="col">削除</th>
+                  <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="blog in pageResult.content">
+                  <td>{{ blog.id }}</td>
+                  <td>{{ blog.title }}</td>
+                  <td>{{ blog.category.name }}</td>
+                  <td>{{ blog.statusDesc }}</td>
+                  <td>{{ blog.createdDate | formatDateFilter }}</td>
+                  <td>
+                    <a :href="'blogs/' + blog.id">
+                      <i class="fa-solid fa-pen-to-square" v-if="blog.status == 0"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="javascript:" v-on:click="openDeleteModal(blog.id)">
+                      <i class="fa-solid fa-trash-can" v-if="blog.status == 0"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="javascript:" v-on:click="release(blog)">
+                      <i class="fa-solid fa-check" v-if="blog.status == 0"></i>
+                      <i class="fa-solid fa-circle-check" v-if="blog.status == 1"></i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- end of table -->
+
+            <!-- pageNav -->
+            <div th:replace="pagenav::pagenav"></div>
+            <!-- delete modal -->
+            <div th:replace="blog/delete::delete"></div>
+          </div>
+          <!-- end of card-body -->
+        </div>
+        <!-- end of card -->
+      </div>
+      <!-- end of container-fluid -->
+    </div>
+    <!-- end of content -->
+  </div>
+  <!-- end of content-wrapper -->
+
+  <!-- footer -->
+  <div th:replace="footer::footer"></div>
 </div>
 <!-- end of wrapper -->
 
 <script type="text/javascript">
-    $(() => {
-        let vm = new Vue({
-            el: '#blogs',
-            data: {
-                url: 'data/blogs',
-                pageResult: {},
-                blog: {}
-            },
-            mounted: function () {
-                this.list(0);
-            },
-            methods: {
-                // 非同期でデータを取得する
-                list: function (start) {
-                    axios.get(this.url, {
-                        params: {
-                            start: start
-                        }
-                    }).then((response) => {
-                        this.pageResult = response.data.content;
-                    });
-                },
-                // ぺージナビコントロール
-                goPage: function (num) {
-                    if (num !== vm.pageResult.number) {
-                        this.list(num);
-                    }
-                },
-                // ブログの状態を更新する
-                release: function (blog) {
-                    console.log(blog);
-                    let status = blog.status;
-
-                    if (status === 0) {
-                        blog.status = 1;
-                        axios.put(this.url, blog).then(() => {
-                            this.list(0);
-                            alert('リリースした！');
-                        });
-                    } else if (status === 1) {
-                        blog.status = 0;
-                        axios.put(this.url, blog).then(() => {
-                            this.list(0);
-                            alert('キャンセルした！');
-                        });
-                    }
-                },
-                // 削除モーダル
-                openDeleteModal: function (id) {
-                    this.blog.id = id;
-                    $('#deleteModal').modal();
-                },
-                // 削除
-                remove: function () {
-                    axios.delete(this.url + "/" + this.blog.id).then(() => {
-                        $('#deleteModal').modal('hide');
-                        this.list(0);
-                    });
-                }
+  $(() => {
+    let vm = new Vue({
+      el: '#blogs',
+      data: {
+        url: 'data/blogs',
+        pageResult: {},
+        blog: {}
+      },
+      mounted: function () {
+        this.list(0)
+      },
+      methods: {
+        // 非同期でデータを取得する
+        list: function (start) {
+          axios.get(this.url, {
+            params: {
+              start: start
             }
-        });
-    });
+          }).then((response) => {
+            this.pageResult = response.data.content
+          })
+        },
+        // ぺージナビコントロール
+        goPage: function (num) {
+          if (num !== vm.pageResult.number) {
+            this.list(num)
+          }
+        },
+        // ブログの状態を更新する
+        release: function (blog) {
+          console.log(blog)
+          let status = blog.status
+
+          if (status === 0) {
+            blog.status = 1
+            axios.put(this.url, blog).then(() => {
+              this.list(0)
+              alert('リリースした！')
+            })
+          } else if (status === 1) {
+            blog.status = 0
+            axios.put(this.url, blog).then(() => {
+              this.list(0)
+              alert('キャンセルした！')
+            })
+          }
+        },
+        // 削除モーダル
+        openDeleteModal: function (id) {
+          this.blog.id = id
+          $('#deleteModal').modal()
+        },
+        // 削除
+        remove: function () {
+          axios.delete(this.url + '/' + this.blog.id).then(() => {
+            $('#deleteModal').modal('hide')
+            this.list(0)
+          })
+        }
+      }
+    })
+  })
 </script>
 
 </body>

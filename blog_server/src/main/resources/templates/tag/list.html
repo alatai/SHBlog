@@ -7,160 +7,160 @@
 
 <!-- begin of wrapper -->
 <div id="tags" class="wrapper">
-    <!-- nav -->
-    <div th:replace="navbar::nav('タグ')"></div>
-    <!-- sidebar -->
-    <div th:replace="sidebar::sidebar('tags')"></div>
+  <!-- nav -->
+  <div th:replace="navbar::nav('タグ')"></div>
+  <!-- sidebar -->
+  <div th:replace="sidebar::sidebar('tags')"></div>
 
-    <!-- begin of content-wrapper -->
-    <div class="content-wrapper">
-        <!-- begin of content -->
-        <div class="content">
-            <!-- begin of container-fluid -->
-            <div class="container-fluid">
-                <!-- begin of card -->
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h3 class="card-title">タグ管理</h3>
-                    </div>
+  <!-- begin of content-wrapper -->
+  <div class="content-wrapper">
+    <!-- begin of content -->
+    <div class="content">
+      <!-- begin of container-fluid -->
+      <div class="container-fluid">
+        <!-- begin of card -->
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title">タグ管理</h3>
+          </div>
 
-                    <!-- begin of card-body -->
-                    <div class="card-body">
-                        <div class="grid-btn">
-                            <button class="btn btn-primary" v-on:click="openEditModal()">
-                                <i class="fa fa-plus"></i>&nbsp;追加
-                            </button>
-                        </div>
-                        <br>
-
-                        <!-- begin of table -->
-                        <div>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">名称</th>
-                                    <th scope="col">作成日</th>
-                                    <th scope="col">編集</th>
-                                    <th scope="col">削除</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="tag in pageResult.content">
-                                    <td>{{ tag.id }}</td>
-                                    <td>{{ tag.name }}</td>
-                                    <td>{{ tag.createdDate | formatDateFilter }}</td>
-                                    <td>
-                                        <a href="javascript:" v-on:click="openEditModal(tag)">
-                                            <i class="fa-solid fa-pen-to-square" data-toggle="modal" data-target="#editModal"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:" v-on:click="openDeleteModal(tag.id)">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- end of table -->
-
-                        <!-- pageNav -->
-                        <div th:replace="pagenav::pagenav"></div>
-                        <!-- edit modal -->
-                        <div th:replace="tag/edit::edit"></div>
-                        <!-- delete modal -->
-                        <div th:replace="tag/delete::delete"></div>
-                    </div>
-                    <!-- end of card-body -->
-                </div>
-                <!-- end of card -->
+          <!-- begin of card-body -->
+          <div class="card-body">
+            <div class="grid-btn">
+              <button class="btn btn-primary" v-on:click="openEditModal()">
+                <i class="fa fa-plus"></i>&nbsp;追加
+              </button>
             </div>
-            <!-- end of container-fluid -->
-        </div>
-        <!-- end of content -->
-    </div>
-    <!-- end of content-wrapper -->
+            <br>
 
-    <!-- footer -->
-    <div th:replace="footer::footer"></div>
+            <!-- begin of table -->
+            <div>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">名称</th>
+                  <th scope="col">作成日</th>
+                  <th scope="col">編集</th>
+                  <th scope="col">削除</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="tag in pageResult.content">
+                  <td>{{ tag.id }}</td>
+                  <td>{{ tag.name }}</td>
+                  <td>{{ tag.createdDate | formatDateFilter }}</td>
+                  <td>
+                    <a href="javascript:" v-on:click="openEditModal(tag)">
+                      <i class="fa-solid fa-pen-to-square" data-toggle="modal" data-target="#editModal"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="javascript:" v-on:click="openDeleteModal(tag.id)">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- end of table -->
+
+            <!-- pageNav -->
+            <div th:replace="pagenav::pagenav"></div>
+            <!-- edit modal -->
+            <div th:replace="tag/edit::edit"></div>
+            <!-- delete modal -->
+            <div th:replace="tag/delete::delete"></div>
+          </div>
+          <!-- end of card-body -->
+        </div>
+        <!-- end of card -->
+      </div>
+      <!-- end of container-fluid -->
+    </div>
+    <!-- end of content -->
+  </div>
+  <!-- end of content-wrapper -->
+
+  <!-- footer -->
+  <div th:replace="footer::footer"></div>
 </div>
 <!-- end of wrapper -->
 
 <!-- begin of vue js -->
 <script type="text/javascript">
-    $(() => {
-        let vm = new Vue({
-            el: '#tags',
-            data: {
-                url: 'data/tags',
-                pageResult: {},
-                tag: {}
-            },
-            mounted: function () {
-                this.list(0);
-            },
-            methods: {
-                // 非同期でデータを取得する
-                list: function (start) {
-                    axios.get(this.url, {
-                        params: {
-                            start: start
-                        }
-                    }).then((response) => {
-                        this.pageResult = response.data.content;
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                },
-                // ぺージナビコントロール
-                goPage: function (num) {
-                    if (num !== vm.pageResult.number) {
-                        this.list(num);
-                    }
-                },
-                // 編集モーダル
-                openEditModal: function (tag) {
-                    if (tag) {
-                        this.tag = tag;
-                    }
-                    // 推奨されていない
-                    $('#editModal').modal();
-                },
-                // 追加/更新
-                addOrUpdate: function () {
-                    if (this.tag.id) {
-                        axios.put(this.url, this.tag).then(() => {
-                            this.afterEdit();
-                        });
-                    } else {
-                        axios.post(this.url, this.tag).then(() => {
-                            this.afterEdit();
-                        });
-                    }
-                },
-                // 追加/更新の後実行する
-                afterEdit: function () {
-                    $('#editModal').modal('hide');
-                    vm.list(0);
-                    vm.tag = {};
-                },
-                // 削除モーダル
-                openDeleteModal: function (id) {
-                    this.tag.id = id;
-                    $('#deleteModal').modal();
-                },
-                // 削除
-                remove: function () {
-                    axios.delete(this.url + "/" + this.tag.id).then(() => {
-                        $('#deleteModal').modal('hide');
-                        vm.list(0);
-                    });
-                },
+  $(() => {
+    let vm = new Vue({
+      el: '#tags',
+      data: {
+        url: 'data/tags',
+        pageResult: {},
+        tag: {}
+      },
+      mounted: function () {
+        this.list(0)
+      },
+      methods: {
+        // 非同期でデータを取得する
+        list: function (start) {
+          axios.get(this.url, {
+            params: {
+              start: start
             }
-        });
-    });
+          }).then((response) => {
+            this.pageResult = response.data.content
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        // ぺージナビコントロール
+        goPage: function (num) {
+          if (num !== vm.pageResult.number) {
+            this.list(num)
+          }
+        },
+        // 編集モーダル
+        openEditModal: function (tag) {
+          if (tag) {
+            this.tag = tag
+          }
+          // 推奨されていない
+          $('#editModal').modal()
+        },
+        // 追加/更新
+        addOrUpdate: function () {
+          if (this.tag.id) {
+            axios.put(this.url, this.tag).then(() => {
+              this.afterEdit()
+            })
+          } else {
+            axios.post(this.url, this.tag).then(() => {
+              this.afterEdit()
+            })
+          }
+        },
+        // 追加/更新の後実行する
+        afterEdit: function () {
+          $('#editModal').modal('hide')
+          vm.list(0)
+          vm.tag = {}
+        },
+        // 削除モーダル
+        openDeleteModal: function (id) {
+          this.tag.id = id
+          $('#deleteModal').modal()
+        },
+        // 削除
+        remove: function () {
+          axios.delete(this.url + '/' + this.tag.id).then(() => {
+            $('#deleteModal').modal('hide')
+            vm.list(0)
+          })
+        },
+      }
+    })
+  })
 </script>
 <!-- end of vue js -->
 

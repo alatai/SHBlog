@@ -1,19 +1,19 @@
-'use strict';
+'use strict'
 
 // 日時フォーマット
 Vue.filter('formatDateFilter', function (dateValue, formatString) {
-    if (null == dateValue) {
-        return "";
-    }
+  if (null == dateValue) {
+    return ''
+  }
 
-    formatString = formatString || 'YYYY-MM-DD HH:mm:ss';
+  formatString = formatString || 'YYYY-MM-DD HH:mm:ss'
 
-    return moment(dateValue).format(formatString);
-});
+  return moment(dateValue).format(formatString)
+})
 
 // 数字チャック
 function isNumber(value) {
-    let reg = /^[0-9]+.?[0-9]*/;
+  let reg = /^[0-9]+.?[0-9]*/
 
-    return reg.test(value);
+  return reg.test(value)
 }
