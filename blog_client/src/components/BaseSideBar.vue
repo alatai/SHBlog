@@ -6,7 +6,7 @@
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="検索"/>
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+          <button class="btn btn-outline-secondary" type="button" v-on:click="test()">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass"/>
           </button>
         </div>
@@ -36,17 +36,20 @@
       <ul class="list-unstyled">
         <li>
           <a target="_blank" href="https://github.com/alatai/SHBlog">
-            <font-awesome-icon icon="fa-brands fa-github" /> GitHub
+            <font-awesome-icon icon="fa-brands fa-github"/>
+            GitHub
           </a>
         </li>
         <li>
           <a target="_blank" href="https://github.com/alatai/SHBlog">
-            <font-awesome-icon icon="fa-brands fa-twitter" /> Twitter
+            <font-awesome-icon icon="fa-brands fa-twitter"/>
+            Twitter
           </a>
         </li>
         <li>
           <a target="_blank" href="https://github.com/alatai/SHBlog">
-            <font-awesome-icon icon="fa-brands fa-facebook" /> Facebook
+            <font-awesome-icon icon="fa-brands fa-facebook"/>
+            Facebook
           </a>
         </li>
       </ul>
@@ -58,20 +61,30 @@
 <script>
 export default {
   name: 'BaseSideBar',
+  methods: {
+    test: function() {
+      console.log(123)
+    },
+  },
 }
 </script>
 
 <style scoped>
+.sidebar a:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
+
 .sidebar svg:active {
   color: #fff;
 }
 
-.list-unstyled {
+.sidebar .list-unstyled {
   padding-left: 20px;
   list-style: none;
 }
 
-.blog-search h4 {
+.sidebar .blog-search h4 {
   margin-top: 52px;
 }
 </style>

@@ -13,14 +13,17 @@ export default {}
 </script>
 
 <style scoped>
-.blog-title {
-  margin-bottom: 0.25rem;
-  font-size: 2.5rem;
-  color: #000;
+article a:hover {
   text-decoration: none;
 }
 
-.blog-date {
+article .blog-title {
+  margin-bottom: 0.25rem;
+  font-size: 2.5rem;
+  color: #000;
+}
+
+article .blog-date {
   margin-bottom: 1.25rem;
   color: #999;
 }

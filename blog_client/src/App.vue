@@ -7,6 +7,4 @@
 
 <script></script>
 
-<style>
-@import 'assets/css/style.css';
-</style>
+<style></style>

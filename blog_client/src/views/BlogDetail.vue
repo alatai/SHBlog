@@ -4,8 +4,8 @@
       <div class="row">
         <div class="col-md-8 blog-main">
           <div style="height: 800px">
-<!--            <h3>Blog Title</h3>-->
-<!--            <p class="blog-date">January 1, 2022 by SaiHou</p>-->
+            <!--            <h3>Blog Title</h3>-->
+            <!--            <p class="blog-date">January 1, 2022 by SaiHou</p>-->
             <div class="markdown-body">
               <h1>Unicorns</h1>
               <p>All the things</p>
@@ -28,15 +28,6 @@ export default {
 <style scoped>
 @import 'github-markdown-css/github-markdown.css';
 
-h3 {
-  margin-top: 24px;
-}
-
-.blog-date {
-  margin-bottom: 1.25rem;
-  color: #999;
-}
-
 .markdown-body {
   box-sizing: border-box;
   min-width: 200px;
@@ -49,5 +40,14 @@ h3 {
   .markdown-body {
     padding: 15px;
   }
+}
+
+h3 {
+  margin-top: 24px;
+}
+
+.blog-date {
+  margin-bottom: 1.25rem;
+  color: #999;
 }
 </style>

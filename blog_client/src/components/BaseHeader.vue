@@ -3,7 +3,7 @@
     <div class="container">
       <nav class="row">
         <a href="#">
-          <div class="col site-title">SAI HOU's Blog</div>
+          <div class="col">SAI HOU's Blog</div>
         </a>
         <div class="col d-flex justify-content-end blog-page">
           <router-link :to="{ name: 'blog-list' }">Home</router-link>
@@ -22,19 +22,20 @@
   background-image: url(../assets/img/header.jpg);
 }
 
-.site-title {
+.header a {
   color: #fff;
   font-size: 24px;
 }
 
-nav {
+.header a:hover {
+  text-decoration: none;
+}
+
+.header nav {
   padding-top: 10px;
 }
 
-nav .blog-page a {
+.header .blog-page a {
   margin-left: 20px;
-  color: #fff;
-  font-size: 24px;
-  text-decoration: none;
 }
 </style>
