@@ -96,9 +96,9 @@
       data: {
         url: 'data/tags',
         pageResult: {},
-        tag: {}
+        tag: {},
       },
-      mounted: function () {
+      created: function () {
         this.list(0)
       },
       methods: {
@@ -106,17 +106,17 @@
         list: function (start) {
           axios.get(this.url, {
             params: {
-              start: start
+              start: start,
             }
           }).then((response) => {
-            this.pageResult = response.data.content
-          }).catch(function (error) {
+            this.pageResult = response.data
+          }).catch((error) => {
             console.log(error)
           })
         },
         // ぺージナビコントロール
         goPage: function (num) {
-          if (num !== vm.pageResult.number) {
+          if (num !== this.pageResult.number) {
             this.list(num)
           }
         },
@@ -133,18 +133,22 @@
           if (this.tag.id) {
             axios.put(this.url, this.tag).then(() => {
               this.afterEdit()
+            }).catch((error) => {
+              console.log(error)
             })
           } else {
             axios.post(this.url, this.tag).then(() => {
               this.afterEdit()
+            }).catch((error) => {
+              console.log(error)
             })
           }
         },
         // 追加/更新の後実行する
         afterEdit: function () {
           $('#editModal').modal('hide')
-          vm.list(0)
-          vm.tag = {}
+          this.list(0)
+          this.tag = {}
         },
         // 削除モーダル
         openDeleteModal: function (id) {
@@ -155,7 +159,9 @@
         remove: function () {
           axios.delete(this.url + '/' + this.tag.id).then(() => {
             $('#deleteModal').modal('hide')
-            vm.list(0)
+            this.list(0)
+          }).catch((error) => {
+            console.log(error)
           })
         },
       }

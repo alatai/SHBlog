@@ -106,7 +106,7 @@
       data: {
         url: 'data/blogs',
         pageResult: {},
-        blog: {}
+        blog: {},
       },
       mounted: function () {
         this.list(0)
@@ -116,21 +116,22 @@
         list: function (start) {
           axios.get(this.url, {
             params: {
-              start: start
+              start: start,
             }
           }).then((response) => {
-            this.pageResult = response.data.content
+            this.pageResult = response.data
+          }).catch((error) => {
+            console.log(error)
           })
         },
         // ぺージナビコントロール
         goPage: function (num) {
-          if (num !== vm.pageResult.number) {
+          if (num !== this.pageResult.number) {
             this.list(num)
           }
         },
         // ブログの状態を更新する
         release: function (blog) {
-          console.log(blog)
           let status = blog.status
 
           if (status === 0) {
@@ -138,12 +139,16 @@
             axios.put(this.url, blog).then(() => {
               this.list(0)
               alert('リリースした！')
+            }).catch((error) => {
+              console.log(error)
             })
           } else if (status === 1) {
             blog.status = 0
             axios.put(this.url, blog).then(() => {
               this.list(0)
               alert('キャンセルした！')
+            }).catch((error) => {
+              console.log(error)
             })
           }
         },
@@ -157,6 +162,8 @@
           axios.delete(this.url + '/' + this.blog.id).then(() => {
             $('#deleteModal').modal('hide')
             this.list(0)
+          }).catch((error) => {
+            console.log(error)
           })
         }
       }

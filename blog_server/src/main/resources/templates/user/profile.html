@@ -91,31 +91,34 @@
         url: 'data/user',
         params: {}
       },
-      mounted: function () {
+      created: function () {
         this.load()
       },
       methods: {
         // 旧データをロードする
         load: function () {
           axios.get(this.url).then((response) => {
-            this.params = response.data.content
-            this.params.newName = response.data.content.name
+            this.params = response.data
+            this.params.newName = response.data.name
+          }).catch((error) => {
+            console.log(error)
           })
         },
         // 編集確認
         confirm: function () {
           if (this.params.newPassword !== this.params.reNewPassword) {
             alert('同じパスワードを入力してください。')
-
             return
           }
 
           axios.put(this.url, this.params).then((response) => {
-            if (response.data.content === 'success') {
+            if (response.data === 'SUCCESS') {
               window.location.href = 'login'
             } else {
-              alert(response.data.content)
+              alert(response.data)
             }
+          }).catch((error) => {
+            console.log(error)
           })
         }
       }

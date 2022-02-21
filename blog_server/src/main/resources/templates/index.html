@@ -80,15 +80,17 @@
       el: '#index',
       data: {
         url: 'data/index',
-        nums: {}
+        nums: {},
       },
-      mounted: function () {
+      created: function () {
         this.load()
       },
       methods: {
         load: function () {
           axios.get(this.url).then((response) => {
-            this.nums = response.data.content
+            this.nums = response.data
+          }).catch((error) => {
+            console.log(error)
           })
         }
       }

@@ -2,8 +2,6 @@ package com.saihou.blog.controller.admin;
 
 import com.saihou.blog.service.BlogService;
 import com.saihou.blog.service.CategoryService;
-import com.saihou.blog.util.Constant;
-import com.saihou.blog.util.RestfulResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +35,7 @@ public class IndexController {
     }
 
     @GetMapping("/index")
-    public RestfulResult<Map<String, Long>> index() {
+    public Map<String, Long> index() {
         long blogs = blogService.countAllBlogs();
         long categories = categoryService.countAllCategories();
 
@@ -45,7 +43,6 @@ public class IndexController {
         result.put("blogs", blogs);
         result.put("categories", categories);
 
-        return new RestfulResult<>(Constant.SUCCESS_STATUS,
-                Constant.SUCCESS_MESSAGE, result);
+        return result;
     }
 }

@@ -73,16 +73,18 @@
       el: '#login',
       data: {
         url: 'data/user',
-        user: {}
+        user: {},
       },
       methods: {
         login: function () {
           axios.post(this.url, this.user).then((response) => {
-            if (response.data.content === 'login success!') {
+            if (response.data === 'LOGIN SUCCESS') {
               window.location.href = 'index'
             } else {
-              alert(response.data.content)
+              alert(response.data)
             }
+          }).catch((error) => {
+            console.log(error)
           })
         }
       }

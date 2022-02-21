@@ -9,9 +9,10 @@ package com.saihou.blog.util;
  */
 public class Constant {
 
-    // Restful APIのため
-    public final static int SUCCESS_STATUS = 200;
-    public final static String SUCCESS_MESSAGE = "SUCCESS";
+    // COMMON
+    public final static String SUCCESS = "SUCCESS";
+    public final static String FAIL = "FAIL";
+
     // ファイルアップロードパス
     public final static String UPLOAD_PATH = "/img/blog/";
     // ブログ状態
@@ -23,4 +24,10 @@ public class Constant {
     public final static String BLOG_RELEASED_DESC = "リリースした";
     public final static String BLOG_DELETED_DESC = "削除";
     public final static String BLOG_ERROR_DESC = "エラー";
+    // ログインメッセージ
+    public final static String LOGIN_SUCCESS = "LOGIN SUCCESS";
+    public final static String LOGIN_FAIL = "パスワードまたはユーザネームが間違っている！";
+    // ユーザ情報更新メッセージ
+    public final static String PASSWORD_MISTAKE = "旧パスワード間違い！";
+    public final static String PASSWORD_SAME = "旧パスワードと同じ！";
 }

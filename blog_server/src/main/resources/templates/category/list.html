@@ -52,7 +52,8 @@
                   <td>{{ category.createdDate | formatDateFilter }}</td>
                   <td>
                     <a href="javascript:" v-on:click="openEditModal(category)">
-                      <i class="fa-solid fa-pen-to-square" data-toggle="modal" data-target="#editModal"></i>
+                      <i class="fa-solid fa-pen-to-square"
+                         data-toggle="modal" data-target="#editModal"></i>
                     </a>
                   </td>
                   <td>
@@ -96,9 +97,9 @@
       data: {
         url: 'data/categories',
         pageResult: {},
-        category: {}
+        category: {},
       },
-      mounted: function () {
+      created: function () {
         this.list(0)
       },
       methods: {
@@ -106,11 +107,11 @@
         list: function (start) {
           axios.get(this.url, {
             params: {
-              start: start
+              start: start,
             }
           }).then((response) => {
-            this.pageResult = response.data.content
-          }).catch(function (error) {
+            this.pageResult = response.data
+          }).catch((error) => {
             console.log(error)
           })
         },
@@ -133,10 +134,14 @@
           if (this.category.id) {
             axios.put(this.url, this.category).then(() => {
               this.afterEdit()
+            }).catch((error) => {
+              console.log(error)
             })
           } else {
             axios.post(this.url, this.category).then(() => {
               this.afterEdit()
+            }).catch((error) => {
+              console.log(error)
             })
           }
         },
@@ -156,6 +161,8 @@
           axios.delete(this.url + '/' + this.category.id).then(() => {
             $('#deleteModal').modal('hide')
             this.list(0)
+          }).catch((error) => {
+            console.log(error)
           })
         }
       }

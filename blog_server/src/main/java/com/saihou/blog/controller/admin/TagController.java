@@ -2,9 +2,7 @@ package com.saihou.blog.controller.admin;
 
 import com.saihou.blog.entity.Tag;
 import com.saihou.blog.service.TagService;
-import com.saihou.blog.util.Constant;
 import com.saihou.blog.util.PageResult;
-import com.saihou.blog.util.RestfulResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +25,11 @@ public class TagController {
     }
 
     @GetMapping("/tags")
-    public RestfulResult<PageResult<Tag>> list(@RequestParam(value = "start", defaultValue = "0") Integer start,
-                                               @RequestParam(value = "size", defaultValue = "5") Integer size) {
+    public PageResult<Tag> list(@RequestParam(value = "start", defaultValue = "0") Integer start,
+                                @RequestParam(value = "size", defaultValue = "5") Integer size) {
         start = start < 0 ? 0 : start;
-        PageResult<Tag> pageResult = tagService.findAll(start, size, 5);
 
-        return new RestfulResult<>(Constant.SUCCESS_STATUS, Constant.SUCCESS_MESSAGE, pageResult);
+        return tagService.findAll(start, size, 5);
     }
 
     @PostMapping("/tags")

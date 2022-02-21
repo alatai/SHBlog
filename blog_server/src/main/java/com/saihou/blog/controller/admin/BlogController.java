@@ -4,7 +4,6 @@ import com.saihou.blog.entity.Blog;
 import com.saihou.blog.service.BlogService;
 import com.saihou.blog.util.Constant;
 import com.saihou.blog.util.PageResult;
-import com.saihou.blog.util.RestfulResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,37 +27,27 @@ public class BlogController {
     }
 
     @GetMapping("/blogs")
-    public RestfulResult<PageResult<Blog>> list(@RequestParam(value = "start", defaultValue = "0") Integer start,
-                                                @RequestParam(value = "size", defaultValue = "5") Integer size) {
+    public PageResult<Blog> list(@RequestParam(value = "start", defaultValue = "0") Integer start,
+                                 @RequestParam(value = "size", defaultValue = "5") Integer size) {
         start = start < 0 ? 0 : start;
-        PageResult<Blog> pageResult = blogService.findAll(start, size, 5);
-
-        return new RestfulResult<>(Constant.SUCCESS_STATUS,
-                Constant.SUCCESS_MESSAGE, pageResult);
+        return blogService.findAll(start, size, 5);
     }
 
     @GetMapping("/blog/{id}")
-    public RestfulResult<Blog> getBlog(@PathVariable("id") Integer id) {
-        Blog blog = blogService.findById(id);
-
-        return new RestfulResult<>(Constant.SUCCESS_STATUS,
-                Constant.SUCCESS_MESSAGE, blog);
+    public Blog getBlog(@PathVariable("id") Integer id) {
+        return blogService.findById(id);
     }
 
     @PostMapping("/blogs")
-    public RestfulResult<String> add(@RequestBody Blog blog) {
+    public String add(@RequestBody Blog blog) {
         blogService.insert(blog);
-
-        return new RestfulResult<>(Constant.SUCCESS_STATUS,
-                Constant.SUCCESS_MESSAGE, "OK!");
+        return Constant.SUCCESS;
     }
 
     @PutMapping("/blogs")
-    public RestfulResult<String> update(@RequestBody Blog blog) {
+    public String update(@RequestBody Blog blog) {
         blogService.update(blog);
-
-        return new RestfulResult<>(Constant.SUCCESS_STATUS,
-                Constant.SUCCESS_MESSAGE, "OK!");
+        return Constant.SUCCESS;
     }
 
     @DeleteMapping("/blogs/{id}")
@@ -67,8 +56,9 @@ public class BlogController {
     }
 
     @PostMapping("/img")
-    // パラメーターネームはフロントエンド側と同じに
-    public String upload(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile image) {
+    public String upload(HttpServletRequest request,
+                         // パラメーターネームはフロントエンド側と同じに
+                         @RequestParam("editormd-image-file") MultipartFile image) {
         return blogService.upload(request, image);
     }
 

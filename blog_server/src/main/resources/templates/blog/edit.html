@@ -62,8 +62,8 @@
             </div>
 
             <div id="editor">
-                            <textarea style="display:none;"
-                                      v-model="blog.content"></textarea>
+              <textarea style="display:none;"
+                        v-model="blog.content"></textarea>
             </div>
 
             <div>
@@ -101,7 +101,7 @@
         url: 'data/blogs',
         blog: {},
         categories: {},
-        tags: {}
+        tags: {},
       },
       mounted: function () {
         this.load()
@@ -118,13 +118,15 @@
             // アップロード設定
             imageUpload: true,
             imageFormats: ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'],
-            imageUploadURL: '/admin/data/img'
+            imageUploadURL: '/admin/data/img',
           })
 
           // 編集の場合、ブログの詳細をロードする
           if (isNumber(blogId)) {
             axios.get('/admin/data/blog/' + blogId).then((response) => {
-              this.blog = response.data.content
+              this.blog = response.data
+            }).catch((error) => {
+              console.log(error)
             })
           }
 
@@ -132,20 +134,24 @@
           axios.get('/admin/data/categories', {
             params: {
               start: 0,
-              size: 20
+              size: 20,
             }
           }).then((response) => {
-            this.categories = response.data.content.content
+            this.categories = response.data.content
+          }).catch((error) => {
+            console.log(error)
           })
 
           // タグをロードする
           axios.get('/admin/data/tags', {
             params: {
               start: 0,
-              size: 20
+              size: 20,
             }
           }).then((response) => {
-            this.tags = response.data.content.content
+            this.tags = response.data.content
+          }).catch((error) => {
+            console.log(error)
           })
         },
         addOrUpdate: function () {
@@ -168,15 +174,19 @@
           // 更新
           if (this.blog.id) {
             axios.put('/admin/data/blogs', this.blog).then((response) => {
-              if (response.data.message === 'SUCCESS') {
+              if (response.data === 'SUCCESS') {
                 window.location.href = '/admin/blogs'
               }
+            }).catch((error) => {
+              console.log(error)
             })
           } else { // 追加
             axios.post(this.url, this.blog).then((response) => {
-              if (response.data.message === 'SUCCESS') {
+              if (response.data === 'SUCCESS') {
                 window.location.href = '/admin/blogs'
               }
+            }).catch((error) => {
+              console.log(error)
             })
           }
         }
