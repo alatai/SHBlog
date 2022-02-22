@@ -1,15 +1,19 @@
 <template>
   <article>
-    <router-link :to="{ name: 'blog-detail', params: { id: '1' } }">
-      <h2 class="blog-title">Blog Title #id</h2>
+    <router-link :to="{ name: 'blog-detail', params: { id: blog.id } }">
+      <h2 class="blog-title">{{ blog.title }}</h2>
     </router-link>
-    <p class="blog-date">January 1, 2022 by SaiHou</p>
+    <p class="blog-date">{{ blog.createdDate }}</p>
     <p>Blog summary</p>
   </article>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    blog: Object,
+  },
+}
 </script>
 
 <style scoped>

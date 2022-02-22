@@ -16,17 +16,8 @@
     <div class="p-4">
       <h4>カテゴリ</h4>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <a href="#">Java</a>
-        </li>
-        <li class="list-group-item">
-          <a href="#">生活</a>
-        </li>
-        <li class="list-group-item">
-          <a href="#">OS</a>
-        </li>
-        <li class="list-group-item">
-          <a href="#">ネットワーク</a>
+        <li class="list-group-item" v-for="category in categories" :key="category.id">
+          <a href="#">{{ category.name }}</a>
         </li>
       </ul>
     </div>
@@ -59,11 +50,29 @@
 </template>
 
 <script>
+import BlogService from '@/service/BlogService'
+
+
 export default {
-  name: 'BaseSideBar',
+  data () {
+    return {
+      categories: [],
+    }
+  },
+  created () {
+    this.load()
+  },
   methods: {
-    test: function() {
-      console.log(123)
+    load () {
+      BlogService.getCategories()
+          .then(response => {
+            console.log(123)
+            console.log(response.data)
+            this.categories = response.data
+          })
+          .catch(error => {
+              console.log(error)
+          })
     },
   },
 }

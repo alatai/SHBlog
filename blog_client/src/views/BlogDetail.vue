@@ -3,13 +3,10 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 blog-main">
-          <div style="height: 800px">
-            <!--            <h3>Blog Title</h3>-->
-            <!--            <p class="blog-date">January 1, 2022 by SaiHou</p>-->
-            <div class="markdown-body">
-              <h1>Unicorns</h1>
-              <p>All the things</p>
-            </div>
+          <div>
+            <h3>{{ blog.title }}</h3>
+            <p class="blog-date">{{ blog.createdDate }}</p>
+            <div class="markdown-body" v-html="blog.content"></div>
           </div>
         </div>
         <BaseSideBar class="col-md-4 blog-sidebar"/>
@@ -20,8 +17,26 @@
 </template>
 
 <script>
+import BlogService from '@/service/BlogService'
+
 export default {
   props: ['id'],
+  data() {
+    return {
+      blog: {},
+    }
+  },
+  created() {
+    BlogService.getBlog(this.id)
+        .then(response => {
+          console.log(456)
+          console.log(response.data)
+          this.blog = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+  },
 }
 </script>
 

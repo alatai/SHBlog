@@ -22,6 +22,8 @@ public interface BlogService {
 
     Blog findById(Integer id);
 
+    List<Blog> findByStatus(Integer status);
+
     Blog insert(Blog blog);
 
     Blog update(Blog blog);

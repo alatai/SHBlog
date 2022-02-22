@@ -22,6 +22,7 @@
         <!-- バージョン管理 -->
         <junit.version>4.12</junit.version>
         <shiro.version>1.8.0</shiro.version>
+        <commonmark.version>0.18.1</commonmark.version>
     </properties>
 
     <dependencies>
@@ -101,6 +102,12 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-ehcache</artifactId>
             <version>${shiro.version}</version>
+        </dependency>
+        <!-- commonmark -->
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>${commonmark.version}</version>
         </dependency>
     </dependencies>
 

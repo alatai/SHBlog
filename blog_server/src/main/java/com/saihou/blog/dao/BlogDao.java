@@ -3,6 +3,8 @@ package com.saihou.blog.dao;
 import com.saihou.blog.entity.Blog;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * BlogDao
  *
@@ -12,4 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface BlogDao extends JpaRepository<Blog, Integer> {
 
+    List<Blog> findByStatusOrderByCreatedDateDesc(int status);
 }

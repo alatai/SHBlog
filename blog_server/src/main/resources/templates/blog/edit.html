@@ -92,7 +92,8 @@
   $(() => {
     let editor
     let pathname = window.location.pathname
-    let blogId = pathname.charAt(pathname.length - 1)
+    let ret = pathname.split('/')
+    let blogId = ret[ret.length - 1]
 
     // vue
     let vm = new Vue({

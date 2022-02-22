@@ -57,6 +57,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public List<Blog> findByStatus(Integer status) {
+        return blogDao.findByStatusOrderByCreatedDateDesc(status);
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
     public Blog insert(Blog blog) {
         blog.setStatus(Constant.BLOG_WAIT_RELEASE);
