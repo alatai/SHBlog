@@ -7,6 +7,9 @@ import com.saihou.blog.util.Constant;
 import com.saihou.blog.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +32,7 @@ import java.util.UUID;
  * @date 2022/02/15 23:04
  */
 @Service
+@CacheConfig(cacheNames = "blogs")
 public class BlogServiceImpl implements BlogService {
 
     private BlogDao blogDao;
@@ -39,11 +43,13 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable(key = "'blogs-all'")
     public List<Blog> findAll() {
         return blogDao.findAll();
     }
 
     @Override
+    @Cacheable(key = "'blogs-page-'+#p0+'-'+#p1")
     public PageResult<Blog> findAll(Integer start, Integer size, Integer displayPages) {
         Pageable pageable = PageRequest.of(start, size);
         Page<Blog> page = blogDao.findAll(pageable);
@@ -52,17 +58,21 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable(key = "'blogs-one-'+#p0")
     public Blog findById(Integer id) {
         return blogDao.getById(id);
     }
 
     @Override
+    @Cacheable(key = "'blogs-status-'+#p0")
     public List<Blog> findByStatus(Integer status) {
         return blogDao.findByStatusOrderByCreatedDateDesc(status);
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    @Transactional(propagation = Propagation.REQUIRED,
+            rollbackForClassName = "Exception")
+    @CacheEvict(allEntries = true)
     public Blog insert(Blog blog) {
         blog.setStatus(Constant.BLOG_WAIT_RELEASE);
         blog.setCreatedDate(new Date());
@@ -70,13 +80,16 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    @Transactional(propagation = Propagation.REQUIRED,
+            rollbackForClassName = "Exception")
+    @CacheEvict(allEntries = true)
     public Blog update(Blog blog) {
         blog.setModifiedDate(new Date());
         return blogDao.save(blog);
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public void deleteById(Integer id) {
         blogDao.deleteById(id);
     }
@@ -121,6 +134,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable(key = "'blogs-count'")
     public long countAllBlogs() {
         return blogDao.count();
     }

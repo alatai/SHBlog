@@ -2,6 +2,7 @@ package com.saihou.blog.util;
 
 import org.springframework.data.domain.Page;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @version 1.0
  * @date 2022/02/11 15:51
  */
-public class PageResult<T> {
+public class PageResult<T> implements Serializable {
 
     private Page<T> page;
     // ページの数
