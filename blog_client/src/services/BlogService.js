@@ -10,8 +10,22 @@ const apiClient = axios.create({
 })
 
 export default {
-  getBlogs() {
-    return apiClient.get('/blogs')
+  getBlogs(start) {
+    return apiClient.get('/blogs', {
+      params: {
+        start: start,
+      }
+    })
+  },
+  getBlogsByCid(cid) {
+    return apiClient.get('/categories/' + cid + '/blogs')
+  },
+  getBlogsByKeyword(keyword) {
+    return apiClient.get('/blogs/keyword', {
+      params: {
+        keyword: keyword
+      }
+    })
   },
   getBlog(id) {
     return apiClient.get('/blogs/' + id)

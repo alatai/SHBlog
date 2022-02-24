@@ -30,7 +30,7 @@ public class BlogController {
     public PageResult<Blog> list(@RequestParam(value = "start", defaultValue = "0") Integer start,
                                  @RequestParam(value = "size", defaultValue = "5") Integer size) {
         start = start < 0 ? 0 : start;
-        return blogService.findAll(start, size, 5);
+        return blogService.findAll(start, size, Constant.PAGE_RESULT_DISPLAYS);
     }
 
     @GetMapping("/blog/{id}")

@@ -13,6 +13,8 @@ public class Constant {
     public final static String SUCCESS = "SUCCESS";
     public final static String FAIL = "FAIL";
 
+    // PAGE_RESULT
+    public final static int PAGE_RESULT_DISPLAYS = 5;
     // ファイルアップロードパス
     public final static String UPLOAD_PATH = "/img/blog/";
     // ブログ状態

@@ -4,9 +4,11 @@
     <div class="p-4 blog-search">
       <h4>ブログ検索</h4>
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="検索"/>
+        <input type="text" class="form-control"
+               placeholder="検索" v-model="keyword"/>
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" v-on:click="test()">
+          <button class="btn btn-outline-secondary" type="button"
+                  v-on:click="searchByKeyword()">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass"/>
           </button>
         </div>
@@ -17,7 +19,7 @@
       <h4>カテゴリ</h4>
       <ul class="list-group list-group-flush">
         <li class="list-group-item" v-for="category in categories" :key="category.id">
-          <a href="#">{{ category.name }}</a>
+          <a href="javascript:" v-on:click="searchByCid(category.id)">{{ category.name }}</a>
         </li>
       </ul>
     </div>
@@ -45,35 +47,39 @@
         </li>
       </ul>
     </div>
-
   </div>
 </template>
 
 <script>
-import BlogService from '@/service/BlogService'
-
+import {mapState, mapActions,} from 'vuex'
 
 export default {
-  data () {
+  data() {
     return {
-      categories: [],
+      keyword: '',
     }
   },
-  created () {
-    this.load()
+  created() {
+    this.fetchCategories()
   },
   methods: {
-    load () {
-      BlogService.getCategories()
-          .then(response => {
-            console.log(123)
-            console.log(response.data)
-            this.categories = response.data
-          })
-          .catch(error => {
-              console.log(error)
+    searchByCid(cid) {
+      this.$store.dispatch('blog/fetchBlogsByCid', cid)
+          .then(() => {
+            // this.$router.push({
+            //   name: 'blog-list',
+            // })
           })
     },
+    searchByKeyword() {
+      this.$store.dispatch('blog/fetchBlogByKeyword', this.keyword)
+    },
+    ...mapActions('category', ['fetchCategories'])
+  },
+  computed: {
+    ...mapState({
+      categories: state => state.category.categories
+    })
   },
 }
 </script>

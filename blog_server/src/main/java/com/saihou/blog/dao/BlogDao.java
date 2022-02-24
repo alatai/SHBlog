@@ -1,6 +1,9 @@
 package com.saihou.blog.dao;
 
 import com.saihou.blog.entity.Blog;
+import com.saihou.blog.entity.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -14,5 +17,9 @@ import java.util.List;
  */
 public interface BlogDao extends JpaRepository<Blog, Integer> {
 
-    List<Blog> findByStatusOrderByCreatedDateDesc(int status);
+    Page<Blog> findByStatusOrderByCreatedDateDesc(int status, Pageable pageable);
+
+    Page<Blog> findByCategoryOrderByCreatedDateDesc(Category category, Pageable pageable);
+
+    Page<Blog> findByTitleLikeOrderByCreatedDateDesc(String keyword, Pageable pageable);
 }

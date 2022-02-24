@@ -2,6 +2,7 @@ package com.saihou.blog.controller.admin;
 
 import com.saihou.blog.entity.Category;
 import com.saihou.blog.service.CategoryService;
+import com.saihou.blog.util.Constant;
 import com.saihou.blog.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class CategoryController {
                                      @RequestParam(value = "size", defaultValue = "5") Integer size) {
         start = start < 0 ? 0 : start;
 
-        return categoryService.findAll(start, size, 5);
+        return categoryService.findAll(start, size, Constant.PAGE_RESULT_DISPLAYS);
     }
 
     @PostMapping("/categories")

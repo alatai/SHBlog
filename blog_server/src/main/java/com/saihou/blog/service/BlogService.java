@@ -22,7 +22,14 @@ public interface BlogService {
 
     Blog findById(Integer id);
 
-    List<Blog> findByStatus(Integer status);
+    PageResult<Blog> findAllByStatus(Integer status, Integer start, Integer size,
+                                     Integer displayPages);
+
+    PageResult<Blog> findAllByCategory(Integer cid, Integer start, Integer size,
+                                       Integer displayPages);
+
+    PageResult<Blog> findAllByKeyword(String keyword, Integer start, Integer size,
+                                      Integer displayPages);
 
     Blog insert(Blog blog);
 

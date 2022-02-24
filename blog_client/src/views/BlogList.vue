@@ -6,10 +6,10 @@
           <h3 class="pb-4 mb-4 font-italic border-bottom">Blog List</h3>
           <ul class="list-group list-group-flush">
             <li class="list-group-item" v-for="blog in blogs" :key="blog.id">
-              <BaseItem :blog="blog" />
+              <BaseItem :blog="blog"/>
             </li>
           </ul>
-          <PageNav class="page-nav"/>
+          <PageNav class="page-nav" :pageResult="pageResult"/>
         </div>
         <BaseSideBar class="col-md-4 blog-sidebar"/>
       </div>
@@ -20,37 +20,29 @@
 
 <script>
 import PageNav from '@/components/PageNav'
-import BlogService from '@/service/BlogService'
+import {mapState,} from 'vuex'
 
 export default {
-  components: {PageNav},
-  data() {
-    return {
-      blogs: [],
-    }
+  components: {
+    PageNav,
   },
   created() {
-    this.loadData()
+    this.$store.dispatch('blog/fetchBlogs', {
+      start: 0
+    })
   },
-  methods: {
-    loadData() {
-      BlogService.getBlogs()
-          .then(response => {
-            console.log(123)
-            console.log(response.data)
-            this.blogs = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
-    },
+  computed: {
+    ...mapState({
+      blogs: state => state.blog.blogs,
+      pageResult: state => state.blog.pageResult,
+    }),
   },
 }
 </script>
 
 <style scoped>
 h3 {
-  margin-top: 24px;
+  margin-top: 56px;
 }
 
 .page-nav {

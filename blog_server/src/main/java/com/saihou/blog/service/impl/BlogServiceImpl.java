@@ -2,9 +2,14 @@ package com.saihou.blog.service.impl;
 
 import com.saihou.blog.dao.BlogDao;
 import com.saihou.blog.entity.Blog;
+import com.saihou.blog.entity.Category;
 import com.saihou.blog.service.BlogService;
+import com.saihou.blog.service.CategoryService;
 import com.saihou.blog.util.Constant;
 import com.saihou.blog.util.PageResult;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.cache.annotation.CacheConfig;
@@ -36,10 +41,16 @@ import java.util.UUID;
 public class BlogServiceImpl implements BlogService {
 
     private BlogDao blogDao;
+    private CategoryService categoryService;
 
     @Autowired
     public void setBlogDao(BlogDao blogDao) {
         this.blogDao = blogDao;
+    }
+
+    @Autowired
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @Override
@@ -58,15 +69,38 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    @Cacheable(key = "'blogs-one-'+#p0")
-    public Blog findById(Integer id) {
-        return blogDao.getById(id);
+    @Cacheable(key = "'blogs-status-'+#p0+'-page-'+#p1+'-'+#p2")
+    public PageResult<Blog> findAllByStatus(Integer status, Integer start, Integer size,
+                                            Integer displayPages) {
+        Pageable pageable = PageRequest.of(start, size);
+        Page<Blog> page = blogDao.findByStatusOrderByCreatedDateDesc(status, pageable);
+
+        return new PageResult<>(page, displayPages);
     }
 
     @Override
-    @Cacheable(key = "'blogs-status-'+#p0")
-    public List<Blog> findByStatus(Integer status) {
-        return blogDao.findByStatusOrderByCreatedDateDesc(status);
+    @Cacheable(key = "'blogs-cid-'+#p0+'-page-'+#p1+'-'+#p2")
+    public PageResult<Blog> findAllByCategory(Integer cid, Integer start, Integer size,
+                                              Integer displayPages) {
+        Category category = categoryService.findById(cid);
+        Pageable pageable = PageRequest.of(start, size);
+        Page<Blog> page = blogDao.findByCategoryOrderByCreatedDateDesc(category, pageable);
+
+        return new PageResult<>(page, displayPages);
+    }
+
+    @Override
+    public PageResult<Blog> findAllByKeyword(String keyword, Integer start, Integer size, Integer displayPages) {
+        Pageable pageable = PageRequest.of(start, size);
+        Page<Blog> page = blogDao.findByTitleLikeOrderByCreatedDateDesc("%" + keyword + "%", pageable);
+
+        return new PageResult<>(page, displayPages);
+    }
+
+    @Override
+    @Cacheable(key = "'blogs-one-'+#p0")
+    public Blog findById(Integer id) {
+        return blogDao.getById(id);
     }
 
     @Override
@@ -74,8 +108,13 @@ public class BlogServiceImpl implements BlogService {
             rollbackForClassName = "Exception")
     @CacheEvict(allEntries = true)
     public Blog insert(Blog blog) {
+        String markdown = blog.getContent();
+        String html = markdown2Html(markdown);
+
+        blog.setHtmlContent(html);
         blog.setStatus(Constant.BLOG_WAIT_RELEASE);
         blog.setCreatedDate(new Date());
+
         return blogDao.save(blog);
     }
 
@@ -84,7 +123,12 @@ public class BlogServiceImpl implements BlogService {
             rollbackForClassName = "Exception")
     @CacheEvict(allEntries = true)
     public Blog update(Blog blog) {
+        String markdown = blog.getContent();
+        String html = markdown2Html(markdown);
+
+        blog.setHtmlContent(html);
         blog.setModifiedDate(new Date());
+
         return blogDao.save(blog);
     }
 
@@ -137,5 +181,16 @@ public class BlogServiceImpl implements BlogService {
     @Cacheable(key = "'blogs-count'")
     public long countAllBlogs() {
         return blogDao.count();
+    }
+
+    /**
+     * markdown -> Html
+     */
+    private String markdown2Html(String markdown) {
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(markdown);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+
+        return renderer.render(document);
     }
 }

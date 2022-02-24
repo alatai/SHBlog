@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'blog-detail', params: { id: blog.id } }">
       <h2 class="blog-title">{{ blog.title }}</h2>
     </router-link>
-    <p class="blog-date">{{ blog.createdDate }}</p>
+    <p class="blog-date">{{ blog.createdDate | formatDateFilter  }}</p>
     <p>Blog summary</p>
   </article>
 </template>

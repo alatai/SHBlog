@@ -30,6 +30,8 @@ public class Blog implements Serializable {
 
     private String content;
 
+    private String htmlContent;
+
     // ブログの状態
     // 0: WAIT_RELEASE
     // 1: RELEASED
@@ -77,6 +79,14 @@ public class Blog implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getHtmlContent() {
+        return htmlContent;
+    }
+
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
     }
 
     public Integer getStatus() {

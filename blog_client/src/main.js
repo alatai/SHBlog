@@ -11,6 +11,7 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import moment from 'moment/moment.js'
 
 // set fontawesome component
 library.add(faMagnifyingGlass, faGithub, faTwitter, faFacebook)
@@ -47,6 +48,17 @@ requireComponent.keys().forEach((fileName) => {
 // ------ set global component automatically ------
 
 Vue.config.productionTip = false
+
+// 日時フォーマット
+Vue.filter('formatDateFilter', function (dateValue, formatString) {
+  if (null == dateValue) {
+    return ''
+  }
+
+  formatString = formatString || 'YYYY-MM-DD HH:mm:ss'
+
+  return moment(dateValue).format(formatString)
+})
 
 new Vue({
   router,
