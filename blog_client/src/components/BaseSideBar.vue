@@ -24,7 +24,7 @@
       </ul>
     </div>
     <!-- contract -->
-    <div class="p-4">
+    <div class="p-4 blog-sns">
       <h4>SNS</h4>
       <ul class="list-unstyled">
         <li>
@@ -114,5 +114,9 @@ export default {
 
 .sidebar .blog-search h4 {
   margin-top: 52px;
+}
+
+.sidebar .blog-sns {
+  margin-bottom: 52px;
 }
 </style>

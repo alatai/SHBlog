@@ -18,7 +18,7 @@
 
 <style scoped>
 .header {
-  height: 200px;
+  height: 230px;
   background-image: url(../assets/img/header.jpg);
 }
 
