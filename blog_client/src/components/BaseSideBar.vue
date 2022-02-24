@@ -54,6 +54,7 @@
 import {mapState, mapActions,} from 'vuex'
 
 export default {
+  inject: ['reload'],
   data() {
     return {
       keyword: '',
@@ -66,13 +67,25 @@ export default {
     searchByCid(cid) {
       this.$store.dispatch('blog/fetchBlogsByCid', cid)
           .then(() => {
-            // this.$router.push({
-            //   name: 'blog-list',
-            // })
+            let flag = window.location.pathname
+                .split('/').find(item => this.isNumber(item))
+
+            if (flag) {
+              this.$router.push({
+                name: 'blog-list',
+              })
+            } else {
+              this.reload()
+            }
           })
     },
     searchByKeyword() {
       this.$store.dispatch('blog/fetchBlogByKeyword', this.keyword)
+    },
+    isNumber(value) {
+      let reg = /^[0-9]+.?[0-9]*/
+
+      return reg.test(value)
     },
     ...mapActions('category', ['fetchCategories'])
   },

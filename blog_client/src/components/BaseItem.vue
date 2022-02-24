@@ -4,7 +4,7 @@
       <h2 class="blog-title">{{ blog.title }}</h2>
     </router-link>
     <p class="blog-date">{{ blog.createdDate | formatDateFilter  }}</p>
-    <p>Blog summary</p>
+    <p>{{ blog.subtitle }}</p>
   </article>
 </template>
 

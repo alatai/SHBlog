@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-8 blog-main">
           <div style="height: 800px">
-            AboutMe
+            <h1>About me</h1>
           </div>
         </div>
         <BaseSideBar class="col-md-4 blog-sidebar" />
