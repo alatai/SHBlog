@@ -104,23 +104,23 @@
         tags: {},
       },
       mounted: function () {
+        // editormdの設定
+        editor = editormd('editor', {
+          width: '100%',
+          height: 640,
+          syncScrolling: 'single',
+          path: '/editormd/lib/',
+          // アップロード設定
+          imageUpload: true,
+          imageFormats: ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'],
+          imageUploadURL: '/admin/data/img',
+        })
+
         this.load()
       },
       methods: {
         // 初期化
         load: function () {
-          // editormdの設定
-          editor = editormd('editor', {
-            width: '100%',
-            height: 640,
-            syncScrolling: 'single',
-            path: '/editormd/lib/',
-            // アップロード設定
-            imageUpload: true,
-            imageFormats: ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'],
-            imageUploadURL: '/admin/data/img',
-          })
-
           // 編集の場合、ブログの詳細をロードする
           if (isNumber(blogId)) {
             axios.get('/admin/data/blog/' + blogId).then((response) => {
