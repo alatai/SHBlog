@@ -1,7 +1,7 @@
 <template>
   <div class="blog-footer">
     <p>SAI HOU's Blog(Vue + Bootstrap) write by
-      <a href="https://github.com/alatai/SHBlog">
+      <a href="https://github.com/alatai/SHBlog" target="_blank">
         <font-awesome-icon icon="fa-brands fa-github"/>
         alatai
       </a>

@@ -54,7 +54,6 @@
 import {mapState, mapActions,} from 'vuex'
 
 export default {
-  inject: ['reload'],
   data() {
     return {
       keyword: '',
@@ -67,20 +66,26 @@ export default {
     searchByCid(cid) {
       this.$store.dispatch('blog/fetchBlogsByCid', cid)
           .then(() => {
-            let flag = window.location.pathname
-                .split('/').find(item => this.isNumber(item))
-
-            if (flag) {
-              this.$router.push({
-                name: 'blog-list',
-              })
-            } else {
-              this.reload()
-            }
+            this.back2Home()
           })
     },
     searchByKeyword() {
       this.$store.dispatch('blog/fetchBlogByKeyword', this.keyword)
+          .then(()=>{
+            this.back2Home()
+          })
+    },
+    // 詳細ページからホームページへ移動する
+    back2Home() {
+      // URLを分析して判断する
+      let isDetailPage = window.location.pathname
+          .split('/').find(item => this.isNumber(item))
+
+      if (isDetailPage) {
+        this.$router.push({
+          name: 'blog-list',
+        })
+      }
     },
     isNumber(value) {
       let reg = /^[0-9]+.?[0-9]*/

@@ -11,23 +11,30 @@ const routes = [
     path: '/blogs',
     name: 'blog-list',
     component: BlogList,
+    meta: {
+      title: 'Home',
+    },
   },
   {
     path: '/blogs/:id',
     name: 'blog-detail',
     component: BlogDetail,
     props: true,
+    meta: {
+      title: 'Blog',
+    },
   },
   {
     path: '/about',
     name: 'about-me',
     component: AboutMe,
+    meta: {
+      title: 'About',
+    },
   },
 ]
 
 const router = new VueRouter({
-  // Uses the browser's history.pushstate API to
-  // change the URL without reloading the page
   mode: 'history',
   base: process.env.BASE_URL,
   routes,

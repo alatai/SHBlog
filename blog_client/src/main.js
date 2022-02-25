@@ -13,41 +13,39 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import moment from 'moment/moment.js'
 
-// set fontawesome component
+// fontawesome component
 library.add(faMagnifyingGlass, faGithub, faTwitter, faFacebook)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-// set bootstrap component
+// bootstrap component
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 // ------ set global component automatically ------
 const requireComponent = require.context(
-  './components',
-  false,
-  /Base[A-Z]\w+\.(vue|js)$/
+    './components',
+    false,
+    /Base[A-Z]\w+\.(vue|js)$/
 )
 
 requireComponent.keys().forEach((fileName) => {
   const componentConfig = requireComponent(fileName)
 
   const componentName = upperFirst(
-    camelCase(
-      fileName
-        .split('/')
-        .pop()
-        .replace(/\.\w+$/, '')
-    )
+      camelCase(
+          fileName
+              .split('/')
+              .pop()
+              .replace(/\.\w+$/, '')
+      )
   )
 
   Vue.component(
-    componentName,
-    componentConfig.default || componentConfig
+      componentName,
+      componentConfig.default || componentConfig
   )
 })
 // ------ set global component automatically ------
-
-Vue.config.productionTip = false
 
 // 日時フォーマット
 Vue.filter('formatDateFilter', function (dateValue, formatString) {
@@ -59,6 +57,16 @@ Vue.filter('formatDateFilter', function (dateValue, formatString) {
 
   return moment(dateValue).format(formatString)
 })
+
+// ページタイトル
+router.beforeEach((to, form, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})
+
+Vue.config.productionTip = false
 
 new Vue({
   router,
