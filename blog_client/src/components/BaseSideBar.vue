@@ -18,6 +18,9 @@
     <div class="p-4">
       <h4>カテゴリ</h4>
       <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <a href="javascript:" v-on:click="searchByCid()">全部</a>
+        </li>
         <li class="list-group-item" v-for="category in categories" :key="category.id">
           <a href="javascript:" v-on:click="searchByCid(category.id)">{{ category.name }}</a>
         </li>
@@ -64,14 +67,22 @@ export default {
   },
   methods: {
     searchByCid(cid) {
-      this.$store.dispatch('blog/fetchBlogsByCid', cid)
-          .then(() => {
-            this.back2Home()
-          })
+      if (!cid) {
+        this.$store.dispatch('blog/fetchBlogs', {
+          start: 0
+        }).then(() => {
+          this.back2Home()
+        })
+      } else {
+        this.$store.dispatch('blog/fetchBlogsByCid', cid)
+            .then(() => {
+              this.back2Home()
+            })
+      }
     },
     searchByKeyword() {
       this.$store.dispatch('blog/fetchBlogByKeyword', this.keyword)
-          .then(()=>{
+          .then(() => {
             this.back2Home()
           })
     },
