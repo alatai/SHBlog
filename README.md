@@ -5,18 +5,22 @@ SAI HOU's blog site.
 
 ## 技术选型
 ### blog_server（后台管理 + 数据接口）
-#### Maven构建
+#### 后端：Maven构建
 * Spring Boot（2.6.3)
   * Spring Boot JPA
   * thymeleaf
+* Shiro（1.8.0）
 * MySQL（5.8)
 * Redis（6.2.3）
-* Bootstrap（4.6)
-* Vue（2.6.14)
-* Shiro（1.8.0）
 * ...
 
 **详情参见pom.xml文件**
+
+#### 页面
+* Vue（2.6.14)
+* Bootstrap（4.6)
+* AdminLTE（3.2)
+* ...
 
 ### blog_client（用户系统)
 #### Vue cli构建
