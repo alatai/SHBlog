@@ -6,8 +6,8 @@ SAI HOU's blog site.
 ## 技术选型
 ### blog_server（后台管理 + 数据接口）
 #### Maven构建
-* Springboot（2.6.3)
-  * Springboot Jpa
+* Spring Boot（2.6.3)
+  * Spring Boot JPA
   * thymeleaf
 * MySQL（5.8)
 * Redis（6.2.3）
@@ -31,7 +31,7 @@ SAI HOU's blog site.
 ### blog_server
 * 注意请先启动Redis服务
   * 下载安装：https://redis.io/download
-* 启动Springboot服务
+* 启动Spring Boot服务
 
 ### blog_client
 * 安装配置Node.js、npm
