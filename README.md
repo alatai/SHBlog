@@ -1,4 +1,4 @@
-日本語紹介[](https://github.com/alatai/SHBlog/tree/japanese)
+[日本語紹介](https://github.com/alatai/SHBlog/tree/japanese)
 
 # SHBlog
 SAI HOU's blog site.
