@@ -3,9 +3,9 @@
 # SHBlog
 SAI HOU's blog site.
 
-## 技术选型
-### blog_server（后台管理 + 数据接口）
-#### 后端：Maven构建
+## 技術の選択
+### blog_server（管理サイト + API CALL）
+#### バックエンド：Mavenで構築しました
 * Spring Boot（2.6.3)
   * Spring Boot JPA
   * thymeleaf
@@ -14,34 +14,34 @@ SAI HOU's blog site.
 * Redis（6.2.3）
 * ...
 
-**详情参见pom.xml文件**
+**詳細：pom.xml**
 
-#### 页面
+#### ページ
 * Vue（2.6.14)
 * Bootstrap（4.6)
 * AdminLTE（3.2)
 * ...
 
-### blog_client（用户系统)
-#### Vue cli构建
+### blog_client（一般的なユーザ向け)
+#### Vue CLIで構築しました
 * Vue（2.6.14）
 * Vuex（3.6.2）
 * bootstrap-vue（2.21.2）
 * ...
 
-**详情参见package.json**
+**詳細：package.json**
 
-## 项目启动注意
+## 注意
 ### blog_server
-* 注意请先启动Redis服务
-  * 下载安装：https://redis.io/download
-* 启动Spring Boot服务
+* 先にRedisサーバーを起動してください
+  * ダウンロード&インストール：https://redis.io/download
+* Spring Bootプロジェクトを起動します
 
 ### blog_client
-* 安装配置Node.js、npm
-  * 本项目Node.js（v14.18.3.)
-    * 下载安装：https://nodejs.org/en/
-  * 本项目npm（6.14.15）
-    * 安装Node.js时附带安装
-* 安装项目依赖：npm install
-* 启动服务：npm run serve
+* Node.js、npmをインストールしてください
+  * 本プロジェクト：Node.js（v14.18.3.)
+    * ダウンロード：https://nodejs.org/en/
+  * 本プロジェクト：npm（6.14.15）
+    * Node.jsと共にインストールします
+* 依頼をインストールする：npm install
+* Nodejsサーバーを立ち上げる：npm run serve
