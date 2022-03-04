@@ -37,6 +37,10 @@ SAI HOU's blog site.
   * 下载安装：https://redis.io/download
 * 启动Spring Boot服务
 
+### 管理员登录
+* 账号：admin
+* 密码：123
+
 ### blog_client
 * 安装配置Node.js、npm
   * 本项目Node.js（v14.18.3.)
