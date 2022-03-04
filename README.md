@@ -35,6 +35,10 @@ SAI HOU's blog site.
   * ダウンロード&インストール：https://redis.io/download
 * Spring Bootプロジェクトを起動します
 
+### 管理サイトの登録
+* アカウント：admin
+* パスワード：123
+
 ### blog_client
 * Node.js、npmをインストールしてください
   * 本プロジェクト：Node.js（v14.18.3.)
