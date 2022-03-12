@@ -36,8 +36,12 @@ SAI HOU's blog site.
 * Spring Bootプロジェクトを起動します
 
 ### 管理サイトの登録
+* URL:http://localhost:8088/admin/index
 * アカウント：admin
 * パスワード：123
+
+### ブログサイト
+* URL:http://localhost:8080/blogs
 
 ### blog_client
 * Node.js、npmをインストールしてください
