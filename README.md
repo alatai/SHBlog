@@ -38,8 +38,12 @@ SAI HOU's blog site.
 * 启动Spring Boot服务
 
 ### 管理员登录
+* URL：http://localhost:8088/admin/index
 * 账号：admin
 * 密码：123
+
+### 博客
+* URL：http://localhost:8080/blogs
 
 ### blog_client
 * 安装配置Node.js、npm
